@@ -1,0 +1,52 @@
+﻿@model Company.Commerce.Web.ViewModels.Store.CategoryIndexViewModel
+
+<style>
+    .fancy {
+        font-family: 'Gabriela', serif;
+    }
+
+    .main-category h3 {
+        margin-top: 5px;
+    }
+
+    .main-category .description a {
+        padding-top: 8px;
+    }
+
+    #categoryindex-store hr {
+        border-color: #d5d5d5;
+    }
+</style>
+
+<div id="categoryindex-store">
+    <!--CategoryPromotional-->
+    @Html.Action("_CategoryPromotional", new { categoryId = Model.CurrentCategory.CategoryId })
+
+    <!--Category Image-->
+    <div class="row">
+        <div class="col-md-12">
+            <img class="img-responsive" src="@Url.Content(Model.CurrentCategory.AssociatedImages.First().Image.ImagePath)" />
+        </div>
+    </div>
+    <!--Category Details-->
+    <div class="row category-details">
+        <div class="col-md-12 text-center">
+            <h3>Vulputate <strong>velit</strong> esse molestie</h3>
+            <a class="text-warning" href="@Url.Action("AllProducts", "Store", new { categoryId = Model.CurrentCategory.CategoryId })">
+                View all products in @Model.CurrentCategory.Name
+            </a>
+        </div>
+    </div>
+    @*<div class="row">
+        <div class="col-md-12">
+            <div class="featured">
+                <h4 class="fancy promo text-center">Featured Products</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.Action("_FeaturedProducts", "Store", new { CategoryId = Model.CurrentCategory.CategoryId })
+        </div>
+    </div>*@
+</div>

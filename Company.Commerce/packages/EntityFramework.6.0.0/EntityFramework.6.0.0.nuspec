@@ -8,14 +8,10 @@
     <owners>Microsoft</owners>
     <licenseUrl>http://go.microsoft.com/fwlink/?LinkID=320539</licenseUrl>
     <projectUrl>http://go.microsoft.com/fwlink/?LinkID=320540</projectUrl>
-    <iconUrl>http://go.microsoft.com/fwlink/?LinkID=386613</iconUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Entity Framework is Microsoft's recommended data access technology for new applications.</description>
     <summary>Entity Framework is Microsoft's recommended data access technology for new applications.</summary>
     <language>en-US</language>
     <tags>Microsoft EF Database Data O/RM ADO.NET</tags>
-    <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="" />
-    </frameworkAssemblies>
   </metadata>
 </package>

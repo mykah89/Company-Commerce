@@ -1,0 +1,107 @@
+﻿@model Company.Commerce.Web.ViewModels.Store.AllProductsViewModel
+@using PagedList.Mvc
+
+
+
+@*@section sidesort
+    {*@
+@*<div id="sidesort-store">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("AllProducts", "Store", FormMethod.Get))
+                    {
+                        //Filter view model
+                    }
+                    <div class="filter-section">
+                        <h5 class="text-center">Filter</h5>
+                    </div>
+                    <div class="filter-section">
+                        <p class="text-center">Doesnt Work Yet</p>
+                    </div>
+                    <div class="filter-section">
+                        <h5>Price</h5>
+                        <div class="col-md-12">
+                            <p><input type="checkbox" /> <span>100 - 200</span></p>
+                            <p><input type="checkbox" /> <span>100 - 200</span></p>
+                        </div>
+                    </div>
+                    <div class="btns">
+                        <button class="btn btn-primary pull-right">Filter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+@*}*@
+
+<!--Ordering-->
+@section orderby
+    {
+    <div class="row">
+        <div class="order-bar">
+            <div class="col-md-12">
+                @using (Html.BeginForm("AllProducts", "Store", FormMethod.Get))
+                {
+                    @Html.HiddenFor(m => m.CategoryId)
+                    @Html.HiddenFor(m => m.PageNumber)
+
+                    <div class="input-group pull-right">
+                        <span class="input-group-addon"><i class="fa fa-arrow-down"></i>&nbsp;@Html.CheckBoxFor(m => m.OrderByDescending, new { @checked = Model.OrderByDescending == true ? "checked" : "" })</span>
+
+                        @Html.DropDownListFor(m => m.OrderBy, new SelectList(Model.ProductOrderingOptions, Model.OrderBy), Model.OrderBy != 0 ? Enum.GetName(typeof(Company.Commerce.Web.ViewModels.Store.ProductOrderingOptions), Model.OrderBy) : "OrderBy", new { @class = "form-control" })
+
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check"></i></button>
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+}
+
+<div id="allproducts-store">
+    <!--Products-->
+    <div class="row">
+        @foreach (var product in Model.ProductsList)
+        {
+            <div class="col-md-4 col-sm-6 col-xs-6">
+                <div class="product">
+                    <a class="image-container" href="@Url.Action("ProductDetails", "Store", new { productId = product.ProductId, returnUrl = Request.Url.AbsoluteUri })">
+                        <img class="img-responsive" src="@Url.Content(product.AssociatedImages.FirstOrDefault(i => i.IsDefault == true).Image.ImagePath)">
+                        <span class="overlay-container">
+                            <span class="overlay-content">
+                                <span class="col-sm-6 col-xs-12">
+                                    @product.Name
+                                </span>
+                                <span class="col-sm-6 col-xs-12 pull-right text-right">
+                                    @product.Price
+                                </span>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+
+    @*<div class="img-container">
+            <img class="img-responsive" src="@Url.Content(product.DefaultImage.ImagePath)" />
+            <div class="col-sm-12 product-nav">
+                <div class="inner">
+                    <a class="btn btn-primary" href="#">Details</a>
+                    <a class="btn btn-primary" href="#">Add to Cart</a>
+                </div>
+            </div>
+        </div>*@
+
+    <!--Pager-->
+    <div class="row">
+        <div class="col-md-12 text-center">
+            @Html.PagedListPager(Model.ProductsList, ((pn) => Url.Action("AllProducts", "Store",
+            new { categoryID = ViewBag.CurrentCategoryID, pageNumber = pn, OrderByDescending = Model.OrderByDescending, OrderBy = Model.OrderBy })), PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+﻿
+
+<div id="home-index">
+    <!--Carousel-->
+    <div class="row">
+        <div id="main-carousel" class="carousel slide" data-ride="carousel">
+            <!-- class of slide for animation -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <!-- class of active since it's the first item -->
+                    <img class="img-responsive" src="~/Content/images/test/back1.jpg" alt="" />
+                    <div class="carousel-caption">
+                        <h3>Lorem <strong class="color">ipsum</strong> dolor</h3>
+                        <p>Lorem ipsum dolor sit amet, dolor metus accumsan pellentesque sagittis varius vel.</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img class="img-responsive" src="~/Content/images/test/back2.jpg" alt="" />
+                    <div class="carousel-caption">
+                        <h3>Sociosqu in <strong class="color">condimentum</strong></h3>
+                        <p>Per eget ac faucibus, eros turpis odio gravida mauris id ultrices.</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <img class="img-responsive" src="~/Content/images/test/back3.jpg" alt="" />
+                    <div class="carousel-caption">
+                        <h3>In <strong class="color">leo</strong> eu et potenti</h3>
+                        <p>Per eget ac faucibus, eros turpis odio gravida mauris id ultrices.</p>
+                    </div>
+                </div>
+            </div><!-- /.carousel-inner -->
+            <!--  Next and Previous controls below
+            href values must reference the id for this carousel -->
+            <a class="carousel-control left" href="#main-carousel" data-slide="prev"><span class="icon-prev"></span></a>
+            <a class="carousel-control right" href="#main-carousel" data-slide="next"><span class="icon-next"></span></a>
+            <div class="carousel-indicators-container">
+                <ol class="carousel-indicators">
+                    <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#main-carousel" data-slide-to="1" class=""></li>
+                    <li data-target="#main-carousel" data-slide-to="2" class=""></li>
+                </ol>
+            </div>
+        </div><!-- /.carousel -->
+    </div>
+
+    <div class="row">
+        <!--Content-->
+        <div class="home-content">
+            <div class="new-items">
+                <h3 class="text-center">New Products</h3>
+                <hr />
+                <div class="col-md-12">
+                    @Html.Action("_NewItemsStore", "Store")
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3 class="text-center">Lorem Ipsum</h3>
+            </div>
+            <div class="col-md-6">
+                <h3 class="text-center">Dolor Set</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div id="home-index">
+        <div class="container">
+            <div class="row">
+                <div>
+                    <img class="img-responsive" src="~/Content/images/test/back1.jpg" />
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+<!--New Items-->
+@*@Html.Action("_RelatedProducts", "Store")*@
+@*<div id="new-items">
+        <div class="col-md-3">
+            <div class="item" style="height:300px;background-color:ActiveCaption">
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="item" style="height:300px;background-color:ActiveCaption">
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="item" style="height:300px;background-color:ActiveCaption">
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="item" style="height:300px;background-color:ActiveCaption">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>*@
+<!--News Letter-->
+@*<div id="news-letter-container">
+        <div class="container">
+            <div class="col-md-12">
+                <div id="news-letter">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="sign-up">
+                                <div class="col-sm-12 ">
+                                    <div class="sign-up-details">
+                                        <h3><strong>Sign Up!</strong></h3>
+                                        <p>The only way to receive <strong>exclusive</strong> discounts!</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-10">
+                                    @using (Html.BeginForm("Subscribe", "Subscription", FormMethod.Post, new { @class = "form-inline", role = "form" }))
+                                    {
+                                        <div class="form-group sign-up-form">
+                                            <div class="input-group">
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("subscriptionID", 1)
+                                                @Html.TextBox("EmailAddress", "", new { @class = "form-control", placeholder = "Email Address" })
+                                                <span class="input-group-addon"><button class="btn btn-primary" type="submit">Sign up!</button></span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="sign-up-promo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>*@
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').carousel({
+                interval: false,
+            });
+
+            $('#main-carousel').on('slide.bs.carousel', function () {
+                $('.carousel-caption').hide();
+            });
+
+            $('#main-carousel').on('slid.bs.carousel', function () {
+                $('.carousel-caption').slideDown();
+            });
+
+        });
+    </script>
+}
+

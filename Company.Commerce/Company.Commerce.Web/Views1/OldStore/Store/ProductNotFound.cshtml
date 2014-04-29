@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "ProductNotFound";
+    ViewBag.TitleBarName = "Product Not Found";
+    ViewBag.TitleBarSubText = "The product you were looking for could not be found";
+}
+
+<div class="text-center">
+    <h1>Oops!</h1>
+    <br />
+    <h3>We couldn't find the product you were looking for!</h3>
+    <hr />
+    <br />
+    <div>
+        <a class="btn btn-danger" href="@Url.Action("Index", "Store")">Continue Shopping</a>
+    </div>
+</div>

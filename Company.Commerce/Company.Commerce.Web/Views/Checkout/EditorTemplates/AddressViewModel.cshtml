@@ -1,0 +1,44 @@
+﻿@model Company.Commerce.Web.ViewModels.Shared.AddressViewModel
+@using Company.Commerce.Web.Helpers;
+
+<div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.AddressLine1)
+        @Html.TextBoxFor(m => m.AddressLine1, new { @class = "form-control", placeholder = "Address" })
+        @Html.ValidationMessageFor(m => m.AddressLine1)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.AddressLine2)
+        @Html.TextBoxFor(m => m.AddressLine2, new { @class = "form-control", placeholder = "Address 2" })
+        @Html.ValidationMessageFor(m => m.AddressLine2)
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.City)
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "City" })
+                @Html.ValidationMessageFor(m => m.City)
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.State)
+                @Html.DropDownList("State", new SelectList(DataHelpers.States), null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.State)
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.PostalCode)
+                @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control", placeholder = "Postal Code" })
+                @Html.ValidationMessageFor(m => m.PostalCode)
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

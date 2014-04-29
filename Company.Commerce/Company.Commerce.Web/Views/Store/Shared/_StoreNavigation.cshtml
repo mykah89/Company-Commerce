@@ -1,0 +1,28 @@
+﻿@model Company.Commerce.Entity.Models.Category
+
+<div id="storenavigation-store">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills nav-stacked">
+                @if (Model.CategoryId != 0)
+                {
+                    <li class="active"><a href="@Url.Action("Category", "Store", new { categoryId = Model.CategoryId })">@Model.Name</a></li>
+                }
+                else
+                {
+                    <li class="active"><a>@Model.Name</a></li>
+                }
+
+                @if (Model.ChildCategories.Any())
+                {
+
+                    foreach (var subCategory in Model.ChildCategories)
+                    {
+                        <li><a href="@Url.Action("Category", "Store", new { categoryId = @subCategory.CategoryId })">@subCategory.Name</a></li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+

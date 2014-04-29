@@ -1,0 +1,108 @@
+﻿@model List<Project.MVC.Web.ViewModels.Checkout.OrderDetailViewModel>
+
+
+<div class="chk-disptemp-shippingorderdetails">
+    <div class="col-md-12">
+        <!--Head-->
+        @*<div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-md-3">
+
+                        </div>
+                        <div class="col-md-3">
+                            UnitPrice
+                        </div>
+                        <div class="col-md-3">
+                            Quantity
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+
+        <!--Body-->
+        <div class="row body">
+            <div class="col-md-12">
+                @foreach (var orderDetail in Model)
+                {
+                    <div class="row detail-row">
+                        <div class="col-sm-3">
+                            <img class="thumbnail" src="@Html.BaseImagePath()@orderDetail.Product.DefaultImagePath" />
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.CurrencyFormatter(orderDetail.UnitPrice)
+                        </div>
+                        <div class="col-sm-3">
+                            @orderDetail.Quantity
+                        </div>
+                        <div class="col-sm-3">
+                            @Html.CurrencyFormatter(orderDetail.UnitPrice * orderDetail.Quantity)
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!--Footer-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">Shipping</div>
+                <div class="col-sm-3">TBD</div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">Tax</div>
+                <div class="col-sm-3">TBD</div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">Total</div>
+                <div class="col-sm-3">@Html.CurrencyFormatter(Model.Sum(od => od.UnitPrice * od.Quantity))</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="chk-disptemp-orderdetails">
+        <div class="row">
+            <div class="table table-striped">
+                <table class="table table-striped text-right">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th>Line Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var orderDetail in Model)
+                        {
+                            <tr>
+                                <th><img class="thumbnail" src="@Html.BaseImagePath()@orderDetail.Product.DefaultImagePath" /></th>
+                                <th>@Html.CurrencyFormatter(@orderDetail.UnitPrice)</th>
+                                <th>@orderDetail.Quantity</th>
+                                <th>@Html.CurrencyFormatter(@orderDetail.Quantity * @orderDetail.UnitPrice)</th>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Total</th>
+                            <th>@Html.CurrencyFormatter(Model.Sum(i => i.UnitPrice * i.Quantity))</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>*@
+
+

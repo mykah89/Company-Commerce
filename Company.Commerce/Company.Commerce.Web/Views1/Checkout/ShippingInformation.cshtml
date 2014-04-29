@@ -1,0 +1,313 @@
+﻿@model Company.Commerce.Web.ViewModels.Checkout.ShippingInformationViewModel
+<!--First step of the checkout process-->
+@helper checkoutCrumbs(Int32 stepNumber)
+{
+    var curStepNum = 0;
+
+    if (curStepNum == stepNumber)
+    {
+        <h2><i class="fa fa-dot-circle-o text-warning"></i></h2>
+    }
+    else if (curStepNum > stepNumber)
+    {
+        <h2><i class="fa fa-circle"></i></h2>
+    }
+    else
+    {
+        <h2><i class="fa fa-circle-o"></i></h2>
+    }
+}
+
+@section pagetitle
+    {
+    <div class="row">
+        <div id="page-title" class="col-md-12">
+            <h2><i class="fa fa-dropbox"></i>Checkout&nbsp;<small>Shipping Information</small></h2>
+            <hr />
+        </div>
+    </div>
+}
+
+@*@section pagetitlecontent
+    {
+        <div class="text-center">
+            <div class="col-md-2">
+                @checkoutCrumbs(0)
+                <h4>Shipping</h4>
+            </div>
+            <div class="col-md-1">
+                <h3><i class="fa fa-minus"></i></h3>
+            </div>
+            <div class="col-md-2">
+                @checkoutCrumbs(1)
+                <h4>Billing</h4>
+            </div>
+            <div class="col-md-1">
+                <h3><i class="fa fa-minus"></i></h3>
+            </div>
+            <div class="col-md-2">
+                @checkoutCrumbs(2)
+                <h4>Review</h4>
+            </div>
+        </div>
+    }*@
+
+
+<div id="shippinginformation-checkout">
+    <div id="fixupModal-container" class="col-md-12">
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            @using (Html.BeginForm("ShippingInformation", "Checkout", FormMethod.Post, new { @class = "form", role = "form", id = "shipping-form" }))
+            {
+                @Html.HiddenFor(m => m.InstanceKey)
+                @Html.AntiForgeryToken()
+
+                //if (Model.AvailableAddresses.Any())
+                //{
+                    <!--Existing Address Select-->
+                    @*<div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="fa fa-building-o text-warning"></i>Select An Addess
+                                    @Html.ValidationMessageFor(m => m.SelectedShippingAddressId)
+                                </div>
+                                <div class="panel-body">
+                                    <div class="existing-container">
+                                        @foreach (var existingAddres in Model.AvailableAddresses)
+                                        {
+                                            <div class="col-md-4">
+                                                <div class="item">
+                                                    <div class="inner">
+                                                        @Html.DisplayFor(m => existingAddres, "DisplaySelectaddressCheckout")
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                //}
+
+                <!--New Address-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="address-container">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="fa fa-building-o text-warning"></i>Enter a new address
+                                </div>
+                                <div id="shipping-address" class="panel-body">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Address</label>
+                                            @Html.TextBoxFor(m => m.ShippingAddress.AddressLine1, new { @class = "form-control", placeholder = "Address" })
+                                            @Html.ValidationMessageFor(m => m.ShippingAddress.AddressLine1)
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Address 2</label>
+                                            @Html.TextBoxFor(m => m.ShippingAddress.AddressLine2, new { @class = "form-control", placeholder = "Address 2" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">City</label>
+                                        @Html.TextBoxFor(m => m.ShippingAddress.City, new { @class = "form-control", placeholder = "City" })
+                                        @Html.ValidationMessageFor(m => m.ShippingAddress.City)
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">State</label>
+                                        @Html.DropDownList("State", Mo, "", new { @class = "form-control dropdownlist", placeholder = "State" })
+                                        @Html.ValidationMessageFor(m => m.ShippingAddress.State)
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="control-label">Postal</label>
+                                        @Html.TextBoxFor(m => m.ShippingAddress.PostalCode, new { @class = "form-control", placeholder = "Postal" })
+                                        @Html.ValidationMessageFor(m => m.ShippingAddress.PostalCode)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Email & Phone-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="emailphone-container">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="fa fa-phone-square text-warning"></i>Email & Phone
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-md-12">
+                                        <p class="text-warning"><small>*Required for order updates and shipping purposes</small></p>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        @Html.LabelFor(m => m.EmailAddress, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", placeholder = "Email" })
+                                        @Html.ValidationMessageFor(m => m.EmailAddress)
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })
+                                        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number" })
+                                        @Html.ValidationMessageFor(m => m.PhoneNumber)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Navigation Controls-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="navigation-container">
+                            <button id="btn-next" type="submit" class="btn btn-primary" value="Next">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+        <!--Order Information-->
+        <div class="col-md-5">
+            @*<table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cartItem in Model.CartItems)
+                    {
+                        <tr>
+                            <td>@cartItem.Product.ProductName</td>
+                            <td><img class="thumbnail" src="@Url.Content(cartItem.Product.DefaultImage.ImagePath)" alt="ProductImage" /></td>
+                            <td>@Html.CurrencyFormatter(cartItem.Product.UnitPrice)</td>
+                            <td>@Html.CurrencyFormatter(cartItem.Product.UnitPrice * cartItem.Quantity)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            <p>Shipping</p>
+                            <p>Tax</p>
+                            <p>Total</p>
+                        </td>
+                        <td>
+                            <p>TBD</p>
+                            <p>TBD</p>
+                            <p>@(Model.CartItems.Sum(ci => ci.Quantity * ci.Product.UnitPrice))</p>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>*@
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        var shippingForm;
+
+        $(document).ready(function () {
+            shippingForm = $('#shipping-form');
+
+            $(document.body).on("click", "#btn-next", addressFixUp);
+
+            //Manually hook up the address validation
+            addressValidationSetUp();
+        });
+
+        function addressValidationSetUp() {
+            //Manually hook up the address validation, since
+            //we cant do the conditional client side validation via fluent validation
+            $('#City').rules('add',
+                {
+                    required: true,
+                    messages:
+                        {
+                            required: 'Required.'
+                        }
+                });
+
+            $('#State').rules('add',
+                {
+                    required: true,
+                    messages:
+                        {
+                            required: 'Required.'
+                        }
+                });
+
+            $('#AddressLine1').rules('add',
+                {
+                    required: true,
+                    messages:
+                        {
+                            required: 'Required.'
+                        }
+                });
+
+            $('#PostalCode').rules('add',
+                {
+                    required: true,
+                    messages:
+                        {
+                            required: 'Required.'
+                        }
+                });
+
+            $.validator.unobtrusive.parse(shippingForm);
+        }
+
+        function addressFixUp(event) {
+            //Prevent the form from submitting for now
+            event.preventDefault();
+
+            //If the form is valid, we want to make a call to see if we can get
+            //a more precise address, possibly account for any typos
+            if (shippingForm.valid()) {
+                var addressContainer = $('#shipping-address :input');
+
+                var serialized = addressContainer.serialize().replace(/ShippingAddress./g, "");
+
+                $.post("@Url.Action("_AddressFixUp","Checkout")", serialized, addressFixUpSuccess).fail();
+            }
+        }
+
+        function addressFixUpSuccess(data) {
+            //Success will be true if a valid alternative
+            //was found, otherwise continue with the users input
+            if (data.Success) {
+                var modalContainer = $('#fixupModal-container');
+
+                modalContainer.html();
+
+                modalContainer.html(data.Data);
+
+                $('#fixupModal').modal("show");
+            }
+            else {
+                shippingForm.submit();
+            }
+        }
+
+        function addressFixUpFailure() {
+            shippingForm.submit();
+        }
+    </script>
+}

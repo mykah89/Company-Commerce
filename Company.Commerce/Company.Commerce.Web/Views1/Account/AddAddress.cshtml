@@ -1,0 +1,23 @@
+﻿@model Project.MVC.Web.ViewModels.Account.AddNewAddressViewModel
+
+<div id="addaddress-account">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-exclamation text-warning"></i>Add Address
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("AddAddress", "Account", FormMethod.Post, new { @class = "form", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Partial("~/Views/Shared/EditorTemplates/EditorNewAddressShared.cshtml", Model)
+                        <div>
+                            <button class="btn btn-primary pull-right" type="submit">Add</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

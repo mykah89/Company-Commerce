@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .admin-nav-container {
+        margin: 0 auto;
+        margin-bottom: 10px;
+        border-bottom: 1px dotted #b4b4b4;
+    }
+
+    .admin-navitem {
+        background-color: #333333;
+        background-image: linear-gradient(to bottom, #242424 0%, black 100%);
+        border-radius: 10px;
+        color: #999999;
+        display: inline-block;
+        font-size: 40px;
+        margin-bottom: 10px;
+        padding: 10px 40px 10px 40px;
+    }
+
+        .admin-navitem:hover {
+            color: whitesmoke;
+            text-decoration: none;
+        }
+
+        .admin-navitem p {
+            font-size: 16px;
+            margin-top: 6px;
+            margin-bottom: 0px;
+        }
+</style>
+
+@section pagetitle
+{
+    <div class="row">
+        <div id="page-title" class="col-md-12">
+            <h2><i class="fa fa-adjust"></i>Admin&nbsp;<small></small></h2>
+            <hr />
+        </div>
+    </div>
+}
+
+<div id="admin-layout">
+    <div class="row admin-bar">
+        <div class="admin-nav-container text-center">
+            <a class="admin-navitem" href="#">
+                <i class="fa fa-cogs"></i>
+                <p>Settings</p>
+            </a>
+            <a class="admin-navitem" href="@Url.Action("Orders","Admin")">
+                <i class="fa fa-lightbulb-o"></i>
+                <p>Orders</p>
+            </a>
+        </div>
+    </div>
+
+    @RenderBody()
+</div>
+

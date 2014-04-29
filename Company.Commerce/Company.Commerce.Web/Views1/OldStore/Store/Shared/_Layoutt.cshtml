@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--THIS IS THE STORE LAYOUT FOR BROWSING-->
+<!-- Page title -->
+@section PageTitle
+{
+    @if (IsSectionDefined("storepagetitle"))
+    {
+        @RenderSection("storepagetitle")
+    }
+    else
+    {
+        <h2><i class="fa fa-arrow-circle-right"></i>Store<small>Some small accent text</small></h2>
+        <hr />
+    }
+
+}
+
+@if (IsSectionDefined("storebreadcrumbs"))
+{
+    RenderSection("storebreadcrumbs");
+}
+
+<!-- Page title -->
+<!-- Page content -->
+<div class="shop-items">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-sm-3" style="background-color:ActiveCaption">
+                @if (IsSectionDefined("SideBar"))
+                {
+                    @RenderSection("SideBar")
+                }
+                else
+                {
+                    <div class="sidey">
+                        @Html.Action("_StoreSideNavigation")
+                    </div>
+                    <!-- Default Sidebar -->
+                    <!-- Sidebar items (featured items)-->
+                    <div class="sidebar-items">
+                        @*<h5>Featured Items</h5>*@
+                        @*@Html.Action("_FeaturedItems", new { categoryId = 0 })*@
+                    </div>
+                    <!-- End Default Sidebar -->
+                }
+            </div>
+            <!-- End Sidebar -->
+            <!-- Store Body -->
+            <div class="col-sm-9" style="background-color:ActiveCaption">
+                @RenderBody()
+            </div>
+            <!-- End Store Body -->
+            <div class="sep-bor"></div>
+        </div>
+    </div>
+
+    <br />
+
+    <!--CATEGORY POPULAR ITEMS-->
+    <div class="container">
+        <div class="row text-center" style="border:1px dotted black">
+            <h4>Popular items will go here</h4>
+        </div>
+    </div>
+</div>
+
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-chevron-up"></i></a></span>

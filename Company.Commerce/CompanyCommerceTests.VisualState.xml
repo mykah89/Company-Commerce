@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]C:\Users\VB1\Desktop\Projects\Company\Company.Commerce\CompanyCommerceTests.nunit</TopNode>
+  <SelectedNode>[0-1005]Company.Commerce.Service.IntegrationTest.SetUpTearDown</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]C:\Users\VB1\Desktop\Projects\Company\Company.Commerce\CompanyCommerceTests.nunit" Expanded="true" />
+    <Node UniqueName="[0-1015]C:\Users\VB1\Desktop\Projects\Company\Company.Commerce\Company.Commerce.Service.IntegrationTest\bin\Debug\Company.Commerce.Service.IntegrationTest.exe" Expanded="true" />
+    <Node UniqueName="[0-1016]Company" Expanded="true" />
+    <Node UniqueName="[0-1017]Company.Commerce" Expanded="true" />
+    <Node UniqueName="[0-1018]Company.Commerce.Service" Expanded="true" />
+    <Node UniqueName="[0-1005]Company.Commerce.Service.IntegrationTest.SetUpTearDown" Expanded="true" />
+    <Node UniqueName="[0-1001]Company.Commerce.Service.IntegrationTest.OrderServiceTests" Expanded="true" />
+    <Node UniqueName="[0-1006]Company.Commerce.Service.IntegrationTest.UserServiceTests" Expanded="true" />
+  </Nodes>
+</VisualState>

@@ -1,0 +1,24 @@
+﻿@model List<Project.MVC.Entity.Models.Product>
+
+
+<div id="newitems-store">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="product">
+                    <a class="image-container" href="@Url.Action("ProductDetails", "Store", new { productID = product.ProductID })">
+                        <img class="img-responsive" src="@Url.Content(product.DefaultImage.ImagePath)">
+                        <span class="overlay-container">
+                            <span class="overlay-content">
+                                @product.ProductName
+                                <span class="pull-right"><i class="fa fa-arrow-circle-o-right"></i></span>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

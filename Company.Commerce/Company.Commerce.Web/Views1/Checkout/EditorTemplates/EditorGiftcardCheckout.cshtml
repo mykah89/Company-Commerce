@@ -1,0 +1,33 @@
+﻿@model Project.MVC.Web.ViewModels.Checkout.GiftCardPaymentViewModel
+
+@{
+    var rowGuid = Guid.NewGuid().ToString("N");
+}
+
+
+
+<div class="editor-giftcard-checkout form" data-rowid="@rowGuid">
+    @using (Html.BeginCollectionItem("GiftCardPayments"))
+    {
+        @Html.ValidationSummary(true)
+        @Html.ValidationMessageFor(m => m.Balance)
+        <div class="form-group col-md-5">
+            @Html.LabelFor(m => m.GiftCardNumber, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.GiftCardNumber, new { @class = "form-control", data_attribute = "GiftCardNumber", placeholder = "Card #" })
+            @Html.ValidationMessageFor(m => m.GiftCardNumber)
+        </div>
+        <div class="form-group col-md-3">
+            @Html.LabelFor(m => m.GiftCardPin, new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.GiftCardPin, new { @class = "form-control", data_attribute = "GiftCardPin", placeholder = "Pin" })
+            @Html.ValidationMessageFor(m => m.GiftCardPin)
+        </div>
+        <div class="form-group col-md-3">
+            <label class="control-label invisible">.</label>
+            <a id="btn-apply" data-rowid="@rowGuid" class="btn btn-primary form-control">Verify</a>
+        </div>
+        <div class="form-group col-md-1">
+            <label class="control-label invisible">.</label>
+            <a id="btn-remove" data-rowid="@rowGuid" class="btn btn-danger"><i class="fa fa-minus"></i></a>
+        </div>
+    }
+</div>

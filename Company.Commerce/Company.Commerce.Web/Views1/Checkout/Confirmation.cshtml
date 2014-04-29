@@ -1,0 +1,55 @@
+@section pagetitle
+    {
+    <div class="row">
+        <div id="page-title" class="col-md-12">
+            <h2><i class="fa fa-check-circle text-success"></i>Checkout&nbsp;<small>Shipping Information</small></h2>
+            <hr />
+        </div>
+    </div>
+}
+
+<div id="confirmation-checkout">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="col-md-12">
+                <div class="row">
+                    <h3 class="text-center">Thank you for your order!</h3>
+                </div>
+                <div class="row">
+                    <h5><strong>Your Order # is <span class="color">@ViewBag.OrderID</span>.</strong></h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>An email has been sent with details about your order.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-question-circle text-warning"></i>How did we do?
+                </div>
+                <div class="panel-body">
+                    @Html.Partial("_ContactUs", new Project.MVC.Web.ViewModels.General.ContactUsViewModel())
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row related-items">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-crosshairs text-warning"></i>Related Items
+                </div>
+                <div class="panel-body">
+                    @Html.Action("_RelatedProducts", "Store")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

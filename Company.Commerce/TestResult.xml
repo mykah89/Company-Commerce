@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\VB1\Desktop\Projects\Company\Company.Commerce\CompanyCommerceTests.nunit" total="11" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2014-04-10" time="12:27:14">
+  <environment nunit-version="2.6.3.13283" clr-version="2.0.50727.5477" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Users\VB1\Desktop\Projects\Company\Company.Commerce" machine-name="VB1-PC" user="VB1" user-domain="VB1-PC" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Project" name="C:\Users\VB1\Desktop\Projects\Company\Company.Commerce\CompanyCommerceTests.nunit" executed="True" result="Success" success="True" time="10.862" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="C:\Users\VB1\Desktop\Projects\Company\Company.Commerce\Company.Commerce.Service.IntegrationTest\bin\Debug\Company.Commerce.Service.IntegrationTest.exe" executed="True" result="Success" success="True" time="10.848" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Company" executed="True" result="Success" success="True" time="10.847" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Commerce" executed="True" result="Success" success="True" time="10.847" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Service" executed="True" result="Success" success="True" time="10.847" asserts="0">
+                    <results>
+                      <test-suite type="SetUpFixture" name="IntegrationTest" executed="True" result="Success" success="True" time="10.845" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="OrderServiceTests" executed="True" result="Success" success="True" time="1.918" asserts="0">
+                            <results>
+                              <test-case name="Company.Commerce.Service.IntegrationTest.OrderServiceTests.Create" executed="True" result="Success" success="True" time="1.878" asserts="6" />
+                              <test-case name="Company.Commerce.Service.IntegrationTest.OrderServiceTests.Fluent_Order_Validator" executed="True" result="Success" success="True" time="0.020" asserts="5" />
+                              <test-case name="Company.Commerce.Service.IntegrationTest.OrderServiceTests.Fluent_OrderLine_Validator" executed="True" result="Success" success="True" time="0.006" asserts="4" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="UserServiceTests" executed="True" result="Success" success="True" time="1.980" asserts="0">
+                            <results>
+                              <test-case name="Company.Commerce.Service.IntegrationTest.UserServiceTests.Create" executed="True" result="Success" success="True" time="0.698" asserts="7" />
+                              <test-case name="Company.Commerce.Service.IntegrationTest.UserServiceTests.Fluent_User_Validator" executed="True" result="Success" success="True" time="0.027" asserts="9" />
+                              <test-case name="Company.Commerce.Service.IntegrationTest.UserServiceTests.Password_Validator" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                              <test-case name="Company.Commerce.Service.IntegrationTest.UserServiceTests.SetEmail" executed="True" result="Success" success="True" time="0.006" asserts="6" />
+                              <test-case name="Company.Commerce.Service.IntegrationTest.UserServiceTests.SetPassword" executed="True" result="Success" success="True" time="0.296" asserts="6" />
+                              <test-case name="Company.Commerce.Service.IntegrationTest.UserServiceTests.SetUsername" executed="True" result="Success" success="True" time="0.007" asserts="6" />
+                              <test-case name="Company.Commerce.Service.IntegrationTest.UserServiceTests.Update" executed="True" result="Success" success="True" time="0.324" asserts="7" />
+                              <test-case name="Company.Commerce.Service.IntegrationTest.UserServiceTests.VerifyPassword" executed="True" result="Success" success="True" time="0.596" asserts="1" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

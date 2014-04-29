@@ -1,0 +1,49 @@
+﻿@model List<Proj.MVC.ViewModels.Store.ProductViewModel>
+
+
+<!-- Recent items CarouFredSel Starts -->
+<div class="recent-posts blocky">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Section title -->
+                <div class="section-title">
+                    <h4><i class="icon-desktop color"></i>&nbsp;Recent Additions</h4>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="my_carousel">
+                            <div class="carousel_nav pull-right">
+                                <!-- Carousel navigation -->
+                                <a class="prev" id="car_prev" href="#"><i class="fa fa-chevron-left"></i></a>
+                                <a class="next" id="car_next" href="#"><i class="fa fa-chevron-right"></i></a>
+                            </div>
+                            <ul id="carousel_container">
+                                <!-- Carousel item -->
+                                @foreach (var item in Model)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("ProductDetails", "Store", new { productId = item.Id })">
+                                            <img src="@Html.BaseImagePath()@item.DefaultImagePath" alt="" class="img-responsive" /></a>
+                                        <div class="carousel_caption">
+                                            <h5><a href="@Url.Action("ProductDetails", "Store", new { productId = item.Id })">@item.Name</a></h5>
+                                            <p>Some.panel .panel-default about the product goes here. Not More than 2 lines.</p>
+                                            @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+                                            {
+                                                @Html.Hidden("productId", item.Id)
+                                                <button class="btn btn-info" type="submit"><i class="fa fa-shopping-cart"></i>Buy for @String.Format("{0:c}", item.Price)</button>
+                                            }
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Recent items Ends -->

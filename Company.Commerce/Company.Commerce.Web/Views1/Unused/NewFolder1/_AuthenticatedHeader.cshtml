@@ -1,0 +1,8 @@
+﻿<div>
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-inline" }))
+    {
+        @Html.AntiForgeryToken()
+        <button class="btn btn-primary navbar-btn" type="submit">Log Off</button>
+    }
+</div>
+

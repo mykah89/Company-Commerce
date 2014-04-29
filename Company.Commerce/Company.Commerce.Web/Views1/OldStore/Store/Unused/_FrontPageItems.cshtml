@@ -1,0 +1,54 @@
+﻿@model List<Proj.MVC.ViewModels.Store.ProductViewModel>
+
+@{
+    Int32 rowNumbers = Model.Count / 4;
+}
+
+@helper showItem(Proj.MVC.ViewModels.Store.ProductViewModel item)
+{
+    <div class="col-md-3 col-sm-4 col-xs-6">
+        <div class="item">
+            <!-- Use the below link to put HOT icon -->
+            <div class="item-icon"><span>HOT</span></div>
+            <!-- Item image -->
+            <div class="item-image">
+                <a href="@Url.Action("ProductDetails", "Store", new { productId = item.Id })">
+                    <img src="@Html.BaseImagePath()@item.DefaultImagePath" alt="" class="img-responsive" /></a>
+            </div>
+            <!-- Item details -->
+            <div class="item-details">
+                <!-- Name -->
+                <h5><a href="@Url.Action("ProductDetails", "Store", new { productId = item.Id })">@item.Name</a></h5>
+                <div class="clearfix"></div>
+                <!-- Para. Note more than 2 lines. -->
+                <p>Some.panel .panel-default about the product goes here. Not More than 2 lines.</p>
+                <hr />
+                <!-- Price -->
+                <div class="item-price pull-left">@String.Format("{0:c}", item.Price)</div>
+                <!-- Add to cart -->
+                <div class="pull-right">
+                    @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+                    {
+                        @Html.Hidden("productId", item.Id)
+                        <button class="btn btn-info btn-sm" type="submit">Add to Cart</button>
+                    }
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (rowNumbers > 0)
+{
+    for (int i = 1; i <= rowNumbers; i++)
+    {
+    <div class="row">
+        @for (int x = (i - 1) * 4; x < i * 4; x++)
+        {
+            @showItem(Model[x])
+        }
+    </div>
+    }
+}
+

@@ -1,0 +1,59 @@
+﻿@model Project.MVC.Web.ViewModels.Checkout.OrderViewModel
+
+<div class="row">
+    <div class="col-md-12">
+        @foreach (var ol in Model.OrderDetails)
+        {
+            <div class="row form-group">
+                <div class="col-md-3">
+                    <img src="@Html.BaseImagePath()@ol.Product.DefaultImagePath" class="img-responsive" />
+                </div>
+                <div class="col-md-3">
+                    <a class="text-danger" href="@Url.Action("ProductDetails", "Store", new { productId = ol.Product.ProductID })">@ol.Product.ProductName</a>
+                </div>
+                <div class="col-md-3">
+                    <label>Qty:</label>
+                    @ol.Quantity
+                </div>
+                <div class="col-md-3">
+                    <label>
+                        @Html.CurrencyFormatter(ol.UnitPrice)
+                    </label>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="col-md-6 col-md-push-6">
+                <label class="control-label col-md-8">Tax</label>
+                <div class="col-md-4 text-right control-label">
+                    @Html.CurrencyFormatter(Model.Tax)
+                </div>
+            </div>
+
+            <div class="clearfix">
+            </div>
+
+            <div class="col-md-6 col-md-push-6">
+                <label class="control-label col-md-8">Shipping</label>
+                <div class="col-md-4 text-right control-label">
+                    @Html.CurrencyFormatter(Model.ShippingCost)
+                </div>
+            </div>
+
+            <div class="clearfix">
+            </div>
+
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-6 col-md-push-6">
+                <label class="control-label col-md-8">Total</label>
+                <div class="col-md-4 text-right control-label">
+                    @Html.CurrencyFormatter(Model.TotalPrice)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

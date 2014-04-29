@@ -1,0 +1,22 @@
+﻿@model String
+
+@{
+    Layout = "~/Views/Account/Shared/_LayoutAnonymous.cshtml";
+}
+
+<div id="notconfirmed-account">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-exclamation-triangle text-warning"></i>Not Confirmed
+                </div>
+                <div class="panel-body text-center">
+                    <p>Your account is has not yet been confirmed!</p>
+                    <p>In order to login, you must visit the link sent to your email address.</p>
+                    <p>If you need this email to be resent, please click <a href="@Url.Action("ResendConfirmationEmail","Account", new{ email = Model ?? ""  })">here.</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

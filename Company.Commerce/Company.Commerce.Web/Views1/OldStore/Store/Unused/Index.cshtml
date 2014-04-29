@@ -1,0 +1,54 @@
+﻿@model Project.MVC.Web.ViewModels.Store.StoreIndexViewModel
+@using PagedList.Mvc
+
+
+@*@Html.Action("_BreadCrumbs", new { categoryId = Model.CurrentCategory.CategoryID })*@
+
+<!-- Items List starts -->
+
+<div id="index-store">
+
+    <div class="row">
+        @foreach (var item in Model.DisplayCategories)
+        {
+        <!-- Item #1 -->
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="item">
+                    <!-- Use the below link to put HOT icon -->
+                    @*<div class="item-icon"><span>HOT</span></div>*@
+                    <!-- Item image -->
+                    <div class="item-image">
+                        <a href="@Url.Action("Index", "Store", new { categoryId = item.CategoryID })">
+                            <img src="@item.ImagePath" alt="" class="img-responsive" />
+                        </a>
+                    </div>
+                    <!-- Item details -->
+                    <div class="item-details">
+                        <!-- Name -->
+                        <h5><a href="@Url.Action("Index", "Store", new { categoryId = item.CategoryID })">@item.CategoryName</a></h5>
+                        <div class="clearfix"></div>
+                        <!-- Para. Note more than 2 lines. -->
+                        <p>Some.panel .panel-default about the category goes here. Not More than 2 lines.</p>
+                        <hr />
+                        <!-- Price -->
+                        @*<div class="item-price pull-left">$360</div>*@
+                        <!-- Add to cart -->
+                        <div class="pull-right"><a href="@Url.Action("Index", "Store", new { categoryId = item.CategoryID })" class="btn btn-danger btn-sm">Details</a></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <!-- Items List ends -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Pagination -->
+            @Html.PagedListPager(Model.DisplayCategories, c => @Url.Action("Index", "Store", new { categoryId = Model.CurrentCategory.CategoryID, pageNumber = c }))
+        </div>
+    </div>
+</div>
+
+

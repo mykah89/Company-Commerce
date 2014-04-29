@@ -1,0 +1,42 @@
+﻿@model Project.MVC.Web.ViewModels.Account.ResendConfirmationEmailViewModel
+@{
+    Layout = "~/Views/Account/Shared/_LayoutAnonymous.cshtml";
+}
+
+<div id="notconfirmed-account">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-exclamation-triangle text-warning"></i>Not Confirmed
+                </div>
+                <div class="panel-body">
+                    <h4>Please enter your account information to resend the confirmation email. </h4>
+                    @using (Html.BeginForm("ResendConfirmationEmail", "Account", FormMethod.Post, new { @class = "form", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            @Html.ValidationSummary(true)
+                            <h4 class="text-success">@ViewBag.SuccessMessage</h4>
+                        </div>
+                        <div class="form-group text-left">
+                            @Html.LabelFor(m => m.Email, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                            @Html.ValidationMessageFor(m => m.Email)
+                        </div>
+                        <div class="form-group text-left">
+                            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "password", placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <div class="form-group">
+                            <a class="text-primary" href="@Url.Action("ForgotPassword","Account")">Forgot Password?</a>
+                            <button class="btn btn-primary pull-right" type="submit">Resend Confirmation Email</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

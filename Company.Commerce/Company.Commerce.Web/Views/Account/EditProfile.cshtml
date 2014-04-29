@@ -1,0 +1,41 @@
+@model Project.MVC.Web.ViewModels.Account.UserProfileViewModel
+
+<div id="editprofile-account">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-edit text-warning"></i>Edit Profile
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("EditProfile", "Account", FormMethod.Post, new { @class = "form", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.PhoneNumber, new { @class = "control-label" })
+                            @Html.ValidationMessageFor(m => m.PhoneNumber)
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "PhoneNumber" })
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger pull-right">Save</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

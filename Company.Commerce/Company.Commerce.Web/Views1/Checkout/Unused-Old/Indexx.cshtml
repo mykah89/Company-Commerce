@@ -1,0 +1,107 @@
+﻿@model Project.MVC.Web.ViewModels.Account.LoginViewModel
+
+@{
+    ViewBag.Title = "Checkout";
+
+    var Model = new Project.MVC.Web.ViewModels.Account.LoginViewModel();
+}
+
+@section PageTitle
+{
+    <h2><i class="fa fa-arrow-circle-right"></i>Checkout <small>preference</small></h2>
+    <hr />
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6" style="border-right: 1px solid #ccc">
+            <h1>Current Customers</h1>
+            @if (Request.IsAuthenticated)
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4>Continue to checkout</h4>
+                    </div>
+                </div>
+                <hr />
+                <a href="@Url.Action("Checkout", "Checkout")" class="btn btn-primary">Checkout</a>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4>Sign in to checkout</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4 class="text-right"><small>Dont have an account? <a href="@Url.Action("Register", "Account", new { returnUrl = @Url.Action("Index", "Checkout") })" class="text-danger">Create one now</a></small></h4>
+                    </div>
+                </div>
+                <hr />
+                <div class="clearfix"></div>
+                <div class="col-sm-12">
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("returnUrl", @Url.Action("Index", "Checkout"))
+                        <div class="form-group">
+                            @*@Html.LabelFor(m => Model.UserName, new { @class = "col-md-2 control-label" })*@
+                            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @*@Html.TextBoxFor(m => Model.UserName, new { @class = "form-control", placeholder = "Username" })*@
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username" })
+                                @*@Html.ValidationMessageFor(m => Model.UserName)*@
+                                @Html.ValidationMessageFor(m => m.UserName)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @*@Html.LabelFor(m => Model.Password, new { @class = "col-md-2 control-label" })*@
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @*@Html.TextBoxFor(m => Model.Password, new { @class = "form-control", placeholder = "Password", type = "password" })*@
+                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Password", type = "password" })
+                                @*@Html.ValidationMessageFor(m => Model.Password)*@
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox">
+                                        Remember me
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-info">Sign in</button>
+                                <button type="reset" class="btn btn-default">Reset</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="col-sm-6">
+            <h1>Guests</h1>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Continue to checkout</h4>
+                </div>
+            </div>
+            <hr />
+            <a href="@Url.Action("CheckoutGuest", "Checkout")" class="btn btn-primary">Checkout as guest</a>
+        </div>
+    </div>
+    @*<div class="row">
+            <div class="col-sm-6" style="border-right: 1px solid #ccc;">
+                <a href="@Url.Action("Checkout", "Checkout")" class="btn btn-primary">Checkout as guest</a>
+            </div>
+            <div class="col-sm-6">
+            </div>
+        </div>*@
+</div>
+
+<hr />

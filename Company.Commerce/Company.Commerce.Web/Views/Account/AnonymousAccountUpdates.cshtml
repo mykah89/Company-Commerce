@@ -1,0 +1,15 @@
+﻿@model List<String>
+
+@{
+
+    Layout = "~/Views/Account/Shared/_LayoutAnonymous.cshtml";
+}
+
+<div class="row">
+    @foreach (var update in Model)
+    {
+        <h4 class="text-center">@update</h4>
+    }
+</div>
+
+

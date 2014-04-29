@@ -1,0 +1,146 @@
+﻿@model Project.MVC.Web.ViewModels.Checkout.Steps.ReviewViewModel
+
+
+@helper checkoutCrumbs(Int32 stepNumber)
+{
+    var curStepNum = 2;
+
+    if (curStepNum == stepNumber)
+    {
+        <h2><i class="fa fa-dot-circle-o color"></i></h2>
+    }
+    else if (curStepNum > stepNumber)
+    {
+        <h2><i class="fa fa-circle"></i></h2>
+    }
+    else
+    {
+        <h2><i class="fa fa-circle-o"></i></h2>
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+                <h2><i class="fa fa-pencil text-danger"></i><b>Review</b></h2>
+            </div>
+
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-8 col-md-push-3">
+                        <div class="row text-center">
+                            <div class="col-md-2">
+                                @checkoutCrumbs(0)
+                                <h4>Shipping</h4>
+                            </div>
+                            <div class="col-md-1">
+                                <h3><i class="fa fa-minus"></i></h3>
+                            </div>
+                            <div class="col-md-2">
+                                @checkoutCrumbs(1)
+                                <h4>Billing</h4>
+                            </div>
+                            <div class="col-md-1">
+                                <h3><i class="fa fa-minus"></i></h3>
+                            </div>
+                            <div class="col-md-2">
+                                @checkoutCrumbs(2)
+                                <h4>Review</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <hr />
+        </div>
+        <div class="col-md-12">
+            @using (Html.BeginForm("Review", "Checkout", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.HiddenFor(t => t.CheckoutInstance)
+                <div class="row">
+                    <h4><b>Review your information</b></h4>
+                    <hr />
+                    <div class="col-md-6">
+                        <h4><b>Shipping Address</b></h4>
+                        <div class="col-md-12">
+                            @Html.DisplayFor(m => m.ShippingAddress, "AddressCheckout")
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4><b>Billing Address</b></h4>
+                        <div class="col-md-12">
+                            @Html.DisplayFor(m => m.BillingAddress, "AddressCheckout")
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!--Payment review information-->
+                        @if (Model.CreditCardPayment != null)
+                        {
+                            @Html.DisplayFor(m => m.CreditCardPayment, "ReviewDisplayTemplateCreditCardPayment")
+                        }
+                        @Html.EditorFor(m => m.CreditCardPayment, "CreditCardPaymentRowViewModel")
+
+                        @foreach (var item in Model.GiftCardPayments)
+                        {
+                            <div class="row">@Html.EditorFor(m => item, "GiftCardPaymentRowViewModel")</div>
+
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        <h4><b>Order Information</b></h4>
+                        <br />
+                        <div class="col-md-12">
+                            @Html.DisplayFor(m => m.OrderDetails, "OrderDetailsCheckout")
+                        </div>
+                        <hr />
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label col-md-9">Tax:</label>
+                                    <div class="col-md-3 control-label">
+                                        @Html.CurrencyFormatter(Model.Tax)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label col-md-9">Shipping:</label>
+                                    <div class="col-md-3 control-label">
+                                        @Html.CurrencyFormatter(Model.ShippingCost)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="control-label col-md-9">Total:</label>
+                                    <div class="col-md-3 control-label">
+                                        @Html.CurrencyFormatter((Model.OrderDetails.Sum(i => i.UnitPrice * i.Quantity) + Model.ShippingCost + Model.Tax))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> @*End order totals*@
+                </div>
+
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <p><span class="text-danger"><b>Note:</b></span> This is the final step before your order is submitted for processing.</p>
+
+                        <button class="btn btn-danger cancel" type="submit" name="Previous"><i class="fa fa-arrow-left"></i>&nbspPrevious</button>
+                        <button class="btn btn-success" type="submit" name="Confirm">Confirm Order&nbsp<i class="fa fa-check"></i></button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<br />

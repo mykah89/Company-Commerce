@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page title -->
+@*@section pagetitle{}
+
+    @section pagetitleicon
+    {
+        <i class="fa fa-arrow-circle-right"></i>
+    }*@
+
+
+<div id="layout-store" class="container">
+    <div class="row">
+        <h4 class="text-center">Crumbs</h4>
+        @*BreadCrumbs*@
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            @Html.Action("_SideNavigation", "Store", new { currentCategoryId = ViewBag.CurrentCategoryID })
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+
+@RenderSection("scripts", false)
+
+
+<span class="totop"><a href="#"><i class="fa fa-chevron-up"></i></a></span>

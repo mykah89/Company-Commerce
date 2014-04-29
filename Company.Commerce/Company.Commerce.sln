@@ -3,21 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Web
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Data", "..\..\..\..\Projects\Company\Company.Commerce\Company.Commerce.Data\Company.Commerce.Data.csproj", "{1F21E8B4-42DC-4C35-AF90-FDFFDF007AD1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Data", "Company.Commerce.Data\Company.Commerce.Data.csproj", "{1F21E8B4-42DC-4C35-AF90-FDFFDF007AD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Entity", "..\..\..\..\Projects\Company\Company.Commerce\Company.Commerce.Entity\Company.Commerce.Entity.csproj", "{D6B76945-39EB-4FD2-AF1E-362DD68ECEB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Entity", "Company.Commerce.Entity\Company.Commerce.Entity.csproj", "{D6B76945-39EB-4FD2-AF1E-362DD68ECEB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Framework", "..\..\..\..\Projects\Company\Company.Commerce\Company.Commerce.Framework\Company.Commerce.Framework.csproj", "{6415A112-6C78-45D5-A8A1-CA60263451A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Repository", "Company.Commerce.Repository\Company.Commerce.Repository.csproj", "{07F620E3-81F7-4B1C-96AF-CD94A2C415F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Repository", "..\..\..\..\Projects\Company\Company.Commerce\Company.Commerce.Repository\Company.Commerce.Repository.csproj", "{07F620E3-81F7-4B1C-96AF-CD94A2C415F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Service", "Company.Commerce.Service\Company.Commerce.Service.csproj", "{DD8812BF-EE76-4932-892A-E2199A6BC8C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Repository.Test", "..\..\..\..\Projects\Company\Company.Commerce\Company.Commerce.Repository.Test\Company.Commerce.Repository.Test.csproj", "{4EC63293-97FC-4A54-B9DD-470C760700F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Service.IntegrationTest", "Company.Commerce.Service.IntegrationTest\Company.Commerce.Service.IntegrationTest.csproj", "{E18623F1-8792-44BF-AE47-6276997B50A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Service", "..\..\..\..\Projects\Company\Company.Commerce\Company.Commerce.Service\Company.Commerce.Service.csproj", "{DD8812BF-EE76-4932-892A-E2199A6BC8C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Web", "Company.Commerce.Web\Company.Commerce.Web.csproj", "{152B76EC-A753-4124-8BE5-C59EF2D0C5FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Service.IntegrationTest", "..\..\..\..\Projects\Company\Company.Commerce\Company.Commerce.Service.IntegrationTest\Company.Commerce.Service.IntegrationTest.csproj", "{E18623F1-8792-44BF-AE47-6276997B50A0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Web", "..\..\..\..\Projects\Company\Company.Commerce\Company.Commerce.Web\Company.Commerce.Web.csproj", "{152B76EC-A753-4124-8BE5-C59EF2D0C5FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Commerce.Framework", "Company.Commerce.Framework\Company.Commerce.Framework.csproj", "{6415A112-6C78-45D5-A8A1-CA60263451A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,18 +31,10 @@ Global
 		{D6B76945-39EB-4FD2-AF1E-362DD68ECEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6B76945-39EB-4FD2-AF1E-362DD68ECEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6B76945-39EB-4FD2-AF1E-362DD68ECEB2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6415A112-6C78-45D5-A8A1-CA60263451A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6415A112-6C78-45D5-A8A1-CA60263451A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6415A112-6C78-45D5-A8A1-CA60263451A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6415A112-6C78-45D5-A8A1-CA60263451A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{07F620E3-81F7-4B1C-96AF-CD94A2C415F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{07F620E3-81F7-4B1C-96AF-CD94A2C415F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07F620E3-81F7-4B1C-96AF-CD94A2C415F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07F620E3-81F7-4B1C-96AF-CD94A2C415F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4EC63293-97FC-4A54-B9DD-470C760700F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4EC63293-97FC-4A54-B9DD-470C760700F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4EC63293-97FC-4A54-B9DD-470C760700F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4EC63293-97FC-4A54-B9DD-470C760700F0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD8812BF-EE76-4932-892A-E2199A6BC8C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD8812BF-EE76-4932-892A-E2199A6BC8C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD8812BF-EE76-4932-892A-E2199A6BC8C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +47,10 @@ Global
 		{152B76EC-A753-4124-8BE5-C59EF2D0C5FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{152B76EC-A753-4124-8BE5-C59EF2D0C5FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{152B76EC-A753-4124-8BE5-C59EF2D0C5FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6415A112-6C78-45D5-A8A1-CA60263451A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6415A112-6C78-45D5-A8A1-CA60263451A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6415A112-6C78-45D5-A8A1-CA60263451A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6415A112-6C78-45D5-A8A1-CA60263451A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

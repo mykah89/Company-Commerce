@@ -1,0 +1,47 @@
+﻿@model Company.Commerce.Web.ViewModels.Account.EditEmailViewModel
+
+
+<div id="editemail-account">
+    <div class="row">
+        @using (Html.BeginForm("EditEmail", "Account", FormMethod.Post, new { @class = "form", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-edit text-warning"></i>Edit Email
+                    </div>
+                    <div class="panel-body">
+                        @if (!String.IsNullOrEmpty(ViewBag.SuccessMessage))
+                        {
+                            <h4 class="text-success">@ViewBag.SuccessMessage</h4>
+                        }
+                        @Html.ValidationSummary(true)
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CurrentEmailAddress, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.CurrentEmailAddress, new { @class = "form-control", placeholder = "Email", type = "email", @readonly = "true" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.NewEmailAddress, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.NewEmailAddress, new { @class = "form-control", placeholder = "Email", type = "email" })
+                            @Html.ValidationMessageFor(m => m.NewEmailAddress)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmNewEmailAddress, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.ConfirmNewEmailAddress, new { @class = "form-control", placeholder = "Confirm" })
+                            @Html.ValidationMessageFor(m => m.ConfirmNewEmailAddress)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Password", type = "password" })
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-danger pull-right">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

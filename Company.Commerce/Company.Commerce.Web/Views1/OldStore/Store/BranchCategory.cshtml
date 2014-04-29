@@ -1,0 +1,26 @@
+﻿@model Project.MVC.Web.ViewModels.Store.BranchCategoryViewModel
+
+<div id="branchcategory-store">
+    <div class="row main-category">
+        <div class="col-md-12">
+            <h4>@Model.CurrentCategory.CategoryName</h4>
+            <img src="@Model.CurrentCategory.CategoryImage.ImagePath" />
+            <h4><a class="text-warning" href="@Url.Action("AllCategories", "Store", new { parentCategoryId = Model.CurrentCategory.CategoryID })">View all categories</a></h4>
+        </div>
+    </div>
+    <div class="row preview-categories text-center">
+        @foreach (var childCategory in Model.Categories)
+        {
+            <div class="col-md-4">
+                <div class=".panel .panel-default">
+                    <div class="details">
+                        <a href="@Url.Action("CategoryDetails", "Store", new { categoryId = childCategory.CategoryID })">
+                            <img src="@childCategory.CategoryImage.ImagePath" />
+                            <h4>@childCategory.CategoryName</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

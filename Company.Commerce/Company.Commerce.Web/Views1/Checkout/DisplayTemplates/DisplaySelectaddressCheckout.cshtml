@@ -1,0 +1,18 @@
+﻿@model Project.MVC.Entity.Models.Address
+
+<div class="display-selectaddress-checkout text-center">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Address
+        </div>
+        <div class="panel-body">
+            <p>@Model.AddressLine1</p>
+            <p>@Model.AddressLine2</p>
+            <p>@Model.City, @Model.State</p>
+            <p>@Model.PostalCode</p>
+            <div class="col-sm-12">
+                <button name="SelectedShippingAddressId" value="@Model.AddressID" type="submit" class="btn btn-primary cancel"><i class="fa fa-arrow-right"></i>&nbsp;Ship Here</button>
+            </div>
+        </div>
+    </div>
+</div>

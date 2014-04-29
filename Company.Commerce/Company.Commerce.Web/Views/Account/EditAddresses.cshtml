@@ -1,0 +1,44 @@
+﻿@model List<Project.MVC.Entity.Models.Address>
+
+
+<div id="editaddresses-account">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-building-o text-warning"></i>Addresses
+                </div>
+                <div class="panel-body">
+                    @if (Model.Any())
+                    {
+                        foreach (var address in Model)
+                        {
+                            <div class=".panel .panel-default col-md-3">
+                                <div class="details">
+                                    @Html.Partial("~/Views/Checkout/DisplayTemplates/DisplayAddressCheckout.cshtml", address)
+                                    <div class="text-center">
+                                        <a class="btn btn-danger" href="@Url.Action("DisassociateAddress", "Account", new { addressId = address.AddressID })" type="submit">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="clearfix">
+                        </div>
+                        <br />
+                        <div class="col-md-12">
+                            <a href="@Url.Action("AddAddress","Account")" class="btn btn-primary">Add Another</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center">
+                            <h4>No associated addresses</h4>
+                            <a href="@Url.Action("AddAddress","Account")" class="btn btn-primary btn-lg">Add</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

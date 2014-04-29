@@ -1,0 +1,242 @@
+﻿@model Project.MVC.Web.ViewModels.Checkout.Steps.ReviewViewModel
+
+
+<style>
+    .thumbnail {
+        width: 50px;
+        height: 50px;
+    }
+</style>
+
+<!--Last step of the checkout process-->
+@helper checkoutCrumbs(Int32 stepNumber)
+{
+    var curStepNum = 2;
+
+    if (curStepNum == stepNumber)
+    {
+        <h2><i class="fa fa-dot-circle-o text-warning"></i></h2>
+    }
+    else if (curStepNum > stepNumber)
+    {
+        <h2><i class="fa fa-circle"></i></h2>
+    }
+    else
+    {
+        <h2><i class="fa fa-circle-o"></i></h2>
+    }
+}
+
+<!--Page Title-->
+@section pagetitle
+    {
+    <div class="row">
+        <div id="page-title" class="col-md-12">
+            <h2><i class="fa fa-check-circle"></i>Checkout&nbsp;<small>Review Information</small></h2>
+            <hr />
+        </div>
+    </div>
+}
+
+
+@*@section pagetitlecontent
+    {
+    <div class="text-center">
+        <div class="col-md-2">
+            @checkoutCrumbs(0)
+            <h4>Shipping</h4>
+        </div>
+        <div class="col-md-1">
+            <h3><i class="fa fa-minus"></i></h3>
+        </div>
+        <div class="col-md-2">
+            @checkoutCrumbs(1)
+            <h4>Billing</h4>
+        </div>
+        <div class="col-md-1">
+            <h3><i class="fa fa-minus"></i></h3>
+        </div>
+        <div class="col-md-2">
+            @checkoutCrumbs(2)
+            <h4>Review</h4>
+        </div>
+    </div>
+    }*@
+
+<div id="review-checkout">
+    <div class="row">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-exclamation-triangle text-warning"></i>An error occured
+                    </div>
+                    <div class="panel-body alert-danger">
+                        @Html.ValidationSummary(true)
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-md-7">
+            <!--Display Shipping & Billing Address-->
+            <div class="row address-container">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-building-o text-warning"></i>Shipping
+                        </div>
+                        <div class="panel-body">
+                            @Html.DisplayFor(m => m.Order.ShippingAddress, "DisplayAddressCheckout")
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-building-o text-warning"></i>Billing
+                        </div>
+                        <div class="panel-body">
+                            @Html.DisplayFor(m => m.Order.BillingAddress, "DisplayAddressCheckout")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Credit Card-->
+            <div class="row creditcard-container">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        @if (Model.CreditCardPayment != null)
+                        {
+                            <div class="panel-heading">
+                                <i class="fa fa-credit-card text-warning"></i>Credit Card
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-sm-6">
+                                    <p>Ends with : @Model.CreditCardPayment.CreditCardNumber</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>Expiration : @Model.CreditCardPayment.ExpirationMonth/@Model.CreditCardPayment.ExpirationYear</p>
+                                </div>
+                                <div class="col-md-2">
+                                    <p>Cvv : @Model.CreditCardPayment.CVV</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!--Gift Cards-->
+            @*<div class="row giftcard-container">
+                    <div class="col-md-12">
+                        @if (Model.GiftCardPayments != null && Model.GiftCardPayments.Any())
+                        {
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <i class="text-warning fa fa-gift"></i>Gift Cards
+                                </div>
+                                <div class="panel-body">
+                                    @foreach (var gcPayment in Model.GiftCardPayments)
+                                    {
+                                        <div class="col-sm-6">
+                                            <p>Card Number : @gcPayment.GiftCardNumber</p>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <p>Pin : @gcPayment.GiftCardPin</p>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <p>Balance : @Html.CurrencyFormatter(gcPayment.Balance)</p>
+                                        </div>
+
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>*@
+            <!--Navigation-->
+            <div class="row navigation-container">
+                <div class="col-md-12">
+                    @using (Html.BeginForm("Review", "Checkout", FormMethod.Post, new { @class = "form", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.CheckoutInstance)
+
+                        <div class="btn-toolbar">
+                            <div class="btn-group">
+                                <button class="btn btn-danger cancel" type="submit" name="Previous" value="Previous">Previous</button>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-success" name="Confirm" value="Confirm" type="submit">Submit Order</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                        <th>Unit Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cartItem in Model.CartItems)
+                    {
+                        <tr>
+                            <td>@cartItem.Product.ProductName</td>
+                            <td><img class="thumbnail" src="@Url.Content(cartItem.Product.DefaultImage.ImagePath)" alt="ProductImage" /></td>
+                            <td>@Html.CurrencyFormatter(cartItem.Product.UnitPrice)</td>
+                            <td>@Html.CurrencyFormatter(cartItem.Product.UnitPrice * cartItem.Quantity)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="text-right">
+                            <p>Shipping</p>
+                            <p>Tax</p>
+                            <p>Total</p>
+                            @if (Model.GiftCardPayments != null && Model.GiftCardPayments.Any())
+                            {
+                                <p class="text-warning">- Gift Cards</p>
+                            }
+                            <p>Amount Due</p>
+                        </td>
+                        <td>
+                            <p>@Html.CurrencyFormatter(Model.ShippingCost)</p>
+                            <p>@Html.CurrencyFormatter(Model.Tax)</p>
+                            <p>@Html.CurrencyFormatter(Model.CartItems.Sum(ci => ci.Quantity * ci.Product.UnitPrice) + Model.Tax + Model.ShippingCost) </p>
+
+                            @if (Model.GiftCardPayments != null && Model.GiftCardPayments.Any())
+                            {
+                                if (Model.GiftCardPayments.Sum(gcp => gcp.Balance) > (Model.CartItems.Sum(ci => ci.Quantity * ci.Product.UnitPrice) + Model.Tax + Model.ShippingCost))
+                                {
+                                    <p class="text-warning">@Html.CurrencyFormatter(Model.CartItems.Sum(ci => ci.Quantity * ci.Product.UnitPrice) + Model.Tax + Model.ShippingCost)</p>
+                                    <p>@Html.CurrencyFormatter(0)</p>
+                                }
+                                else
+                                {
+                                    <p class="text-warning">@Html.CurrencyFormatter(Model.GiftCardPayments.Sum(gcp => gcp.Balance))</p>
+                                    <p>@Html.CurrencyFormatter((Model.CartItems.Sum(ci => ci.Quantity * ci.Product.UnitPrice) + Model.Tax + Model.ShippingCost) - Model.GiftCardPayments.Sum(gcp => gcp.Balance))</p>
+                                }
+                            }
+                            else
+                            {
+                                <p>
+                                    @Html.CurrencyFormatter(Model.CartItems.Sum(ci => ci.Quantity * ci.Product.UnitPrice) + Model.Tax + Model.ShippingCost)
+                                </p>
+                            }
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

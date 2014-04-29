@@ -1,0 +1,273 @@
+﻿@model Project.MVC.Web.ViewModels.Checkout.Steps.ShippingInformationViewModel
+<!--First Checkout Process Step-->
+@helper checkoutCrumbs(Int32 stepNumber)
+{
+    var curStepNum = 0;
+
+    if (curStepNum == stepNumber)
+    {
+        <h2><i class="fa fa-dot-circle-o color"></i></h2>
+    }
+    else if (curStepNum > stepNumber)
+    {
+        <h2><i class="fa fa-circle"></i></h2>
+    }
+    else
+    {
+        <h2><i class="fa fa-circle-o"></i></h2>
+    }
+}
+
+<!--Head-->
+<div class="checkout-head">
+    <!--Checkout Progress Bar-->
+    <div class="row">
+        @*<div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li class="active">Shipping</li>
+                    <li>Billing</li>
+                    <li>Review</li>
+                </ol>
+            </div>*@
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2><i class="fa fa-dropbox colo"></i><b>Shipping Details</b></h2>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="col-md-8 col-md-push-3">
+                        <div class="row text-center">
+                            <div class="col-md-2">
+                                @checkoutCrumbs(0)
+                                <h4>Shipping</h4>
+                            </div>
+                            <div class="col-md-1">
+                                <h3><i class="fa fa-minus"></i></h3>
+                            </div>
+                            <div class="col-md-2">
+                                @checkoutCrumbs(1)
+                                <h4>Billing</h4>
+                            </div>
+                            <div class="col-md-1">
+                                <h3><i class="fa fa-minus"></i></h3>
+                            </div>
+                            <div class="col-md-2">
+                                @checkoutCrumbs(2)
+                                <h4>Review</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("ShippingInformation", "Checkout", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.HiddenFor(m => m.CheckoutInstance)
+
+    <!--Body-->
+    <div class="checkout-body">
+        <!--Split Row-->
+        <div class="row">
+            <!--Body Left-->
+            <div class="col-md-8">
+                <!--Existing Address Selection (If available)-->
+                @if (Model.AvailableAddresses.Any())
+                {
+                    <div class="row">
+                        @foreach (var address in Model.AvailableAddresses)
+                        {
+                            <div class="col-md-4">
+                                @Html.DisplayFor(m => address, "DisplayTemplateSelectAddress")
+                            </div>
+                        }
+                    </div>
+                }
+
+                <br />
+
+                <!--New Address-->
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.EditorFor(m => m.ShippingAddress, "AddressViewModel")
+                    </div>
+                </div>
+
+                <!--Email & Phone-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email", @type = "email" })
+                                @Html.ValidationMessageFor(m => m.Email)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number" })
+                                @Html.ValidationMessageFor(m => m.PhoneNumber)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Body Right-->
+            <div class="col-md-4">
+                <!--Order Details-->
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.DisplayFor(m => m.OrderDetails, "DisplayTemplateShippingOrderDetails")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <!--Footer-->
+    <div class="checkout-footer">
+        <!--Navigation Controls-->
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" type="submit" name="Next">Next&nbsp<i class="fa fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+}
+
+
+@*@helper checkoutCrumbs(Int32 stepNumber)
+    {
+        var curStepNum = 0;
+
+        if (curStepNum == stepNumber)
+        {
+            <h2><i class="fa fa-dot-circle-o color"></i></h2>
+        }
+        else if (curStepNum > stepNumber)
+        {
+            <h2><i class="fa fa-circle"></i></h2>
+        }
+        else
+        {
+            <h2><i class="fa fa-circle-o"></i></h2>
+        }
+    }*@
+
+@*<div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+                <h2><i class="fa fa-dropbox text-danger"></i><b>Shipping Details</b></h2>
+            </div>
+
+            <div class="col-md-7">
+                <div class="col-md-8 col-md-push-3">
+                    <div class="row text-center">
+                        <div class="col-md-2">
+                            @checkoutCrumbs(0)
+                            <h4>Shipping</h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h3><i class="fa fa-minus"></i></h3>
+                        </div>
+                        <div class="col-md-2">
+                            @checkoutCrumbs(1)
+                            <h4>Billing</h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h3><i class="fa fa-minus"></i></h3>
+                        </div>
+                        <div class="col-md-2">
+                            @checkoutCrumbs(2)
+                            <h4>Review</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <hr />
+        </div>
+
+
+        <div class="row">
+
+            @Html.HiddenFor(m => m.CheckoutInstance)
+            <div class="col-md-12">
+                <div class="col-md-12 text-center">
+                    <h4><b>@Html.ValidationMessageFor(m => m.SelectedShippingAddressId)</b></h4>
+                </div>
+
+                @Html.Action("_ShipToUserAddresses")
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><b>Enter a new address</b></h4>
+                            <br />
+                        </div>
+                        <div class="col-md-12">
+                            @Html.EditorFor(m => m.ShippingAddress, "AddressViewModel")
+                        </div>
+
+                        <hr />
+
+                        <div class="col-md-12">
+
+                            <small class="text-danger">
+                                <b>
+                                    Phone number is required for shipping-related questions, email address will be used only for providing you
+                                    with information about your order.
+                                </b>
+                            </small>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="form-group">
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <button class="btn btn-primary" type="submit" name="Next">Next&nbsp<i class="fa fa-arrow-right"></i></button>
+                </div>
+
+                <div class="col-md-4">
+                    <h4><b>Order Information</b></h4>
+                    <br />
+                    <div class="col-md-12">
+                        @Html.DisplayFor(m => m.OrderDetails, "OrderDetailsCheckout")
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <br />*@
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

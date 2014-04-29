@@ -1,0 +1,47 @@
+﻿@model Project.MVC.Web.ViewModels.General.AddressViewModel
+
+<div class="chk-editortemp-address">
+    @Html.ValidationSummary(true)
+    @*<div class="form-group">
+            @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Full Name" })
+                @Html.ValidationMessageFor(m => m.FullName)
+            </div>
+        </div>*@
+    <div class="form-group">
+        @Html.LabelFor(m => m.AddressLine1, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.AddressLine1, new { @class = "form-control", placeholder = "Address Line 1" })
+            @Html.ValidationMessageFor(m => m.AddressLine1)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.AddressLine2, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.AddressLine2, new { @class = "form-control", placeholder = "Address Line 2" })
+            @Html.ValidationMessageFor(m => m.AddressLine2)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
+        <div class="col-md-3">
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "City" })
+            @Html.ValidationMessageFor(m => m.City)
+        </div>
+
+        @Html.LabelFor(m => m.State, new { @class = "col-md-1 control-label" })
+        <div class="col-md-3">
+            @Html.DropDownListFor(m => m.State, Html.StatesList(), "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.State)
+        </div>
+
+        @Html.LabelFor(m => m.PostalCode, new { @class = "col-md-1 control-label" })
+        <div class="col-md-2">
+            @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control", placeholder = "Zip" })
+            @Html.ValidationMessageFor(m => m.PostalCode)
+        </div>
+    </div>
+</div>

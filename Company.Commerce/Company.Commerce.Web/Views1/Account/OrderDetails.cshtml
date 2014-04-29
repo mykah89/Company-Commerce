@@ -1,0 +1,115 @@
+﻿@model Project.MVC.Entity.Models.Order
+
+<div id="orderdetails-account">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-building-o text-warning"></i>Shipping Address
+                </div>
+                <div class="panel-body">
+                    @Html.Partial("~/Views/Checkout/DisplayTemplates/DisplayAddressCheckout.cshtml", Model.ShippingAddress)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-building-o text-warning"></i>Billing Address
+                </div>
+                <div class="panel-body">
+                    @Html.Partial("~/Views/Checkout/DisplayTemplates/DisplayAddressCheckout.cshtml", Model.BillingAddress)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-money text-warning"></i>Payment Details
+                </div>
+                <div class="panel-body">
+                    @foreach (var transaction in Model.Transactions)
+                    {
+                        <div>
+                            <p>TransactionType: @transaction.TransactionType.ToString()</p>
+                            <p>Amount: @Html.CurrencyFormatter(transaction.Amount)</p>
+                            <p>PaymentMethod: @transaction.PaymentMethod.ToString()</p>
+
+                            @if (transaction.PaymentMethod == Project.MVC.Entity.Models.PaymentMethod.CreditCard)
+                            {
+                                var ccTrans = transaction as Project.MVC.Entity.Models.CreditCardTransaction;
+                                
+                                <p>Credit card ending in: @ccTrans.CardLastFour</p>
+                            }
+                            else if (transaction.PaymentMethod == Project.MVC.Entity.Models.PaymentMethod.GiftCard)
+                            {
+                                var ccTrans = transaction as Project.MVC.Entity.Models.GiftCardTransaction;
+                                
+                                <p>Gift Card</p>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-arrow-circle-down text-warning"></i>Order #@Model.OrderID
+                </div>
+                <div class="panel-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th></th>
+                                <th>Unit Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var oDetail in Model.OrderDetails)
+                            {
+                                <tr>
+                                    <td>@oDetail.Product.ProductName</td>
+                                    <td>@oDetail.Product.DefaultImage</td>
+                                    <td>@Html.CurrencyFormatter(oDetail.UnitPrice)</td>
+                                    <td>@oDetail.Quantity</td>
+                                    <td>@Html.CurrencyFormatter(oDetail.Quantity * oDetail.UnitPrice)</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Shipping</td>
+                                <td>@Html.CurrencyFormatter(Model.ShippingCost)</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Tax</td>
+                                <td>@Html.CurrencyFormatter(Model.Tax)</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Total</td>
+                                <td>@Html.CurrencyFormatter(Model.OrderDetails.Sum(od => od.UnitPrice * od.Quantity) + Model.ShippingCost + Model.Tax)</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

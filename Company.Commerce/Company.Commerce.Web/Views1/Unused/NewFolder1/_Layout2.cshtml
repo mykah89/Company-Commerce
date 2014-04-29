@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your,Keywords">
+    <meta name="author" content="ResponsiveWebInc">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title here -->
+    <title>@(ViewBag.Title ?? "Store Name")</title>
+
+    <!--CSS Bundle-->
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Favicon -->
+    @*<link rel="shortcut icon" href="">*@
+</head>
+
+<body>
+    <!-- Shopping cart Modal -->
+    @*@Html.Action("_ShoppingCartModal", "ShoppingCart")*@@* Model.Cart.CartItems)*@
+    @*@Html.Action("_ShoppingCartModal", "ShoppingCart")*@
+    <!-- /.modal -->
+    <!-- Login Modal -->
+    @*@Html.Partial("_LoginModal")*@
+    <!-- /.modal -->
+    <!-- Logo & Navigation starts -->
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-5">
+                    <!-- Navigation menu -->
+                    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand logo" href="#">Store</a>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                                <li><a href="@Url.Action("About","Home")">About</a></li>
+                                <li class="dropdown">
+                                    <a href="@Url.Action("Index","Store")" class="dropdown-toggle" data-toggle="dropdown">Store <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="@Url.Action("Index","Store")">All Products</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="@Url.Action("Index","Store")">Some Category</a></li>
+                                        <li><a href="@Url.Action("Index","Store")">Some Other Category</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
+                                <li class="dropdown">
+                                    <a href="@Url.Action("Index","Account")" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="@Url.Action("Index","Account")">Account Details</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="@Url.Action("Index","Account")">Order History</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            @*<form class="navbar-form navbar-left" role="search">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                    </div>
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </form>*@
+                            <div class="nav navbar-nav navbar-right">
+                                <div class="btn-toolbar pull-right">
+                                    <div class="btn-group">
+                                        <a data-toggle="modal" href="#shoppingcart" class="btn btn-primary navbar-btn">@Html.Action("_ShoppingCartPartialBar", "ShoppingCart")<i class="fa fa-shopping-cart"></i></a>
+                                    </div>
+                                    <div class="btn-group">
+                                        @if (Request.IsAuthenticated)
+                                        {
+                                            { Html.RenderPartial("_AuthenticatedHeader"); }
+                                        }
+                                        else
+                                        {
+                                            { Html.RenderPartial("_NonAuthenticatedHeader"); }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            @*<ul class="nav navbar-nav navbar-right">
+                                    <li><a href="#">Link</a></li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">Action</a></li>
+                                            <li><a href="#">Another action</a></li>
+                                            <li><a href="#">Some.panel .panel-default else here</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Separated link</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>*@
+                        </div><!-- /.navbar-collapse -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page title -->
+    @if (IsSectionDefined("PageTitle"))
+    {
+        <div class="page-title">
+            <div class="container">
+                @RenderSection("PageTitle", false)
+            </div>
+        </div>
+    }
+    <!-- Page title -->
+    <!-- Logo & Navigation ends -->
+
+    <div class="clearfix"></div>
+
+    @RenderBody()
+
+
+
+
+    @*@if (IsSectionDefined("Catchy"))
+        {
+            @RenderSection("Catchy")
+        }
+        else
+        {
+            //Default catchy
+
+        }*@
+
+
+    @*<!-- CTA Starts -->
+        <div class="blocky">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="cta">
+                            <div class="row">
+                                <div class="col-md-8 col-sm-8">
+                                    <h5><i class="icon-angle-right"></i>Lorem trist iquest <span class="color">siamet diam</span> ipsum dolor sitamt</h5>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <div class="cta-buttons pull-right">
+                                        <a href="#" class="btn btn-info btn-lg">Download</a> &nbsp; <a href="#" class="btn btn-danger btn-lg">Get It Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- CTA Ends -->*@
+
+    <!-- CTA Starts -->
+    <div class="blocky">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="cta">
+                        <div class="row">
+                            <div class="col-md-8 col-sm-8">
+                                <h5><i class="icon-angle-right"></i>Lorem trist iquest <span class="color">siamet diam</span> ipsum dolor sitamt</h5>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="cta-buttons pull-right">
+                                    <a href="#" class="btn btn-info btn-lg">Download</a> &nbsp; <a href="#" class="btn btn-danger btn-lg">Get It Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CTA Ends -->
+    <!--TODO-->
+    @RenderSection("PreFooter", false)
+
+    <!-- Footer starts -->
+    <footer>
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="fwidget">
+
+                        <h4>Oslon de<span class="color">'</span> Techno</h4>
+                        <hr />
+                        <p>Duis leo risus, vehicula luctus nunc.  Quiue rhoncus, a sodales enim arcu quis turpis. Duis leo risus, condimentum ut posuere ac, vehicula luctus nunc.  Quisque rhoncus, a sodales enim arcu quis turpis.</p>
+
+                        <div class="social">
+                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                            <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                            <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                            <a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="fwidget">
+                        <h4>Categories</h4>
+                        <hr />
+                        <ul>
+                            <li><a href="#">Sed eu leo orci, condimentum gravida metus</a></li>
+                            <li><a href="#">Etiam at nulla ipsum, in rhoncus purus</a></li>
+                            <li><a href="#">Fusce vel magna faucibus felis dapibus facilisis</a></li>
+                            <li><a href="#">Vivamus scelerisque dui in massa</a></li>
+                            <li><a href="#">Pellentesque eget adipiscing dui semper</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-4 col-sm-4">
+                    <div class="fwidget">
+
+                        <h4>Get In Touch</h4>
+                        <hr />
+                        <div class="address">
+                            <p><i class="fa fa-home color contact-icon"></i>#12, Plot No.14, Raj Karmara Street, </p>
+                            <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 5th Stage, Koramangala, Madiwala,</p>
+                            <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Bangalore - 493922, Karananana.</p>
+                            <p><i class="fa fa-phone color contact-icon"></i>+94-948-323-5532</p>
+                            <p><i class="fa fa-envelope color contact-icon"></i><a href="mailto:some.panel .panel-default@gmail.com">some.panel .panel-default@gmail.com</a></p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <hr />
+
+            <div class="copy text-center">
+                Copyright 2013 &copy; - <a href="http://responsivewebinc.com/bootstrap-themes">Bootstrap Themes</a>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer ends -->
+    <!-- Scroll to top -->
+    <span class="totop"><a href="#"><i class="fa fa-chevron-up"></i></a></span>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", false)
+</body>
+</html>

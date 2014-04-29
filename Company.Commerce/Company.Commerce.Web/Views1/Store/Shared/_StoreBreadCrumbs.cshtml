@@ -1,0 +1,30 @@
+﻿@model List<Project.MVC.Entity.Models.Category>
+
+<div id="breadcrumbs-store">
+    @*<div class="row">
+        <div class="col-md-12">*@
+            <ol class="breadcrumb">
+                @if (!Model.Any())
+                {
+                    <li class="active">Index</li>
+                }
+                else
+                {
+                    <li><a href="@Url.Action("Index","Store")">Index</a></li>
+
+                    foreach (var cat in Model)
+                    {
+                        if (Model.IndexOf(cat) == Model.Count - 1)
+                        {
+                            <li class="active">@cat.CategoryName</li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action("Category", "Store", new { categoryID = cat.CategoryID })">@cat.CategoryName</a></li>
+                        }
+                    }
+                }
+            </ol>
+        @*</div>
+    </div>*@
+</div>

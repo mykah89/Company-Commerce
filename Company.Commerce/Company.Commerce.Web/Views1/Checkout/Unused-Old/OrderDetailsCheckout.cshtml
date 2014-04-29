@@ -1,0 +1,26 @@
+﻿@model List<Project.MVC.Web.ViewModels.Checkout.OrderDetailViewModel>
+
+<div class="row">
+    <div class="col-md-12">
+        @foreach (var ol in Model)
+        {
+            <div class="row form-group">
+                <div class="col-md-3">
+                    <img src="@Html.BaseImagePath()@ol.Product.DefaultImagePath" class="img-responsive" />
+                </div>
+                <div class="col-md-3">
+                    <a class="text-danger" href="@Url.Action("ProductDetails", "Store", new { productId = ol.Product.ProductID })">@ol.Product.ProductName</a>
+                </div>
+                <div class="col-md-3">
+                    <label>Qty:</label>
+                    @ol.Quantity
+                </div>
+                <div class="col-md-3">
+                    <label>
+                        @Html.CurrencyFormatter(ol.UnitPrice)
+                    </label>
+                </div>
+            </div>
+        }
+    </div>
+</div>

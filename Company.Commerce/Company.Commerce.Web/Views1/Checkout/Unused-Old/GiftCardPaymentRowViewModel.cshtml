@@ -1,0 +1,79 @@
+﻿@model Project.MVC.Web.ViewModels.Checkout.GiftCardPaymentViewModel
+
+@{
+    var containerPrefix = (String)ViewBag.ContainerPrefix;
+
+    var contPrefix = ViewData["ContainerPrefix"] as String ?? "";
+
+    if (String.IsNullOrEmpty(containerPrefix))
+    {
+        if (!String.IsNullOrEmpty(contPrefix))
+        {
+            containerPrefix = contPrefix;
+        }
+    }
+
+    var rowGuid = @Guid.NewGuid().ToString("N");
+}
+
+<div class="form-horizontal" data-gcrownumber="@rowGuid">
+    @using (Html.BeginCollectionItem(containerPrefix + "GiftCardPayments"))
+    {
+        <div class="row text-center">
+            @Html.ValidationMessageFor(m => m.Balance)
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.GiftCardNumber, new { @class = "control-label col-md-2" })
+            <div class="control-group col-md-4">
+                @Html.TextBoxFor(m => m.GiftCardNumber, new { @class = "form-control", placeholder = "Gift Card #", @data_attribute = "gcNumber" }.ReadonlyIf(Model.Balance > 0))
+                @Html.ValidationMessageFor(m => m.GiftCardNumber)
+            </div>
+            @Html.LabelFor(m => m.GiftCardPin, new { @class = "control-label col-md-1" })
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.GiftCardPin, new { @class = "form-control", placeholder = "Pin #", @data_attribute = "gcPin" }.ReadonlyIf(Model.Balance > 0))
+                @Html.ValidationMessageFor(m => m.GiftCardPin)
+            </div>
+            @*<div class="control-group col-md-2" data-attribute="gcBalance">
+                    @if (Model.Balance <= 0)
+                    {
+                        <label class="control-label" style="visibility:hidden">.</label>
+                        <a id="btn-checkbal" data-gcguid="@rowGuid" class="btn btn-primary form-control">Apply</a>
+                    }
+                    else
+                    {
+                        @Html.LabelFor(m => m.Balance, new { @class = "control-label" })
+                        <input disabled="disabled" class="form-control" type="text" value="@Model.Balance">
+                    }
+                </div>
+                <div class="control-group col-md-2">
+                    <label class="control-label" style="visibility:hidden">.</label>
+                    <a id="btn-remove" data-gcguid="@rowGuid" class="btn btn-danger form-control">Remove</a>
+                </div>*@
+            <div class="col-md-3" data-attribute="gcControls">
+                @if (Model.Balance <= 0)
+                {
+                    <div class="btn-toolbar pull-right">
+                        <div class="btn-group">
+                            <a id="btn-checkbal" data-gcguid="@rowGuid" class="btn btn-success"><small>Apply</small></a>
+                        </div>
+                        <div class="btn-group">
+                            <a id="btn-remove" data-gcguid="@rowGuid" class="btn btn-danger"><small>Remove</small></a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="input-group">
+                        <input disabled="disabled" class="form-control text-center" type="text" value="@Html.CurrencyFormatter(Model.Balance)">
+                        <div class="input-group-btn">
+                            <a id="btn-remove" data-gcguid="@rowGuid" class="btn btn-danger"><small><i class="fa fa-minus"></i></small></a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    <br />
+
+</div>
+

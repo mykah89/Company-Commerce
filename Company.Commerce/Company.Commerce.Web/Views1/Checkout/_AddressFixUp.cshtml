@@ -1,0 +1,62 @@
+﻿@model Project.MVC.Web.ViewModels.Checkout.AddressFixUpViewmodel
+
+<div id="fixupModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-question-circle text-warning"></i>Shipping Address
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-building-o text-warning"></i>Existing Address
+                        </div>
+                        <div class="panel-body text-center">
+                            @Html.DisplayFor(m => m.ExistingAddress, "DisplayAddressCheckout")
+                            <div class="btn-group">
+                                <a data-address="@Json.Encode(Model.ExistingAddress)" id="btn-select-existing" class="btn btn-primary">Use this address</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-building-o text-warning"></i>Suggested Address
+                        </div>
+                        <div class="panel-body text-center">
+                            @Html.DisplayFor(m => m.SuggestedAddress, "DisplayAddressCheckout")
+                            <div class="btn-group">
+                                <a data-address="@Json.Encode(Model.SuggestedAddress)" id="btn-select-suggested" class="btn btn-primary">Use this address</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready()
+    {
+        $(document.body).on("click", '#btn-select-existing', selectButton)
+        $(document.body).on("click", '#btn-select-suggested', selectButton)
+    }
+
+    function selectButton() {
+        var jsonAdd = $(this).attr("data-address");
+
+        var address = $.parseJSON(jsonAdd);
+
+        $('#AddressLine1').val(address.AddressLine1);
+        $('#AddressLine2').val(address.AddressLine2);
+        $('#City').val(address.City);
+        $('#State').val(address.State);
+        $('#PostalCode').val(address.PostalCode);
+
+        $('#shipping-form').submit();
+    }
+</script>

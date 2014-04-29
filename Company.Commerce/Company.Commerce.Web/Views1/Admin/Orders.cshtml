@@ -1,0 +1,106 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model Project.MVC.Web.ViewModels.Admin.AdminOrdersViewModel
+
+<style>
+    .order-row {
+        background-color: #eeeeee;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+
+    #admin-orders table {
+        font-size: 16px;
+    }
+
+        #admin-orders table a {
+            color: #428bca;
+        }
+
+        #admin-orders table tr, td, th {
+            background-color: #eeeeee;
+            text-align: center;
+        }
+
+        #admin-orders table td {
+            background-color: #eeeeee;
+        }
+</style>
+
+<div id="admin-orders">
+    @if (Model.OrderUpdates.Any())
+    {
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-exclamation-circle text-warning"></i>Updates
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            @foreach (var item in Model.OrderUpdates)
+                            {
+                                <li>@item</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-12">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order #</th>
+                        <th>Date</th>
+                        <th>Price</th>
+                        <th>Payment Status</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model.Orders)
+                    {
+                        <tr>
+                            <td>@order.OrderID</td>
+                            <td>@order.OrderDate</td>
+                            <td>@*@Html.CurrencyFormatter(order.TotalPrice)*@</td>
+                            <td>
+                                @*@if (order.PaymentStatus == Project.MVC.Entity.Models.PaymentStatus.Authorized)
+                                {
+                                    <p>Awaiting Capture</p>
+                                    using (Html.BeginForm("OrderCapturePayment", "Admin", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("orderID", order.OrderID)
+                                        <button class="btn btn-primary btn-sm" type="submit">Capture</button>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>@order.PaymentStatus.ToString()</p>
+                                }*@
+                            </td>
+                            <td>@order.OrderStatus</td>
+                            @using (Html.BeginForm("PerformOrderAction", "Admin", FormMethod.Get))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("orderID", order.OrderID)
+                                
+                                <td>@Html.EnumDropDownListFor(m => m.OrderAction, new { @class = "form-control" })</td>
+                                <td><button class="btn btn-danger">Go</button></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row text-center">
+        @Html.PagedListPager(Model.Orders, (pn => @Url.Action("Orders", "Admin", new { pageNumber = pn })), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>

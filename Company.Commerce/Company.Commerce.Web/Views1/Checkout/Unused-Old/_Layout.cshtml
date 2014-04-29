@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section PageTitle
+{
+    @RenderSection("PageTitle", false)
+}
+
+<div id="checkout" class="container">
+    @RenderBody()
+</div>
+
+@if (IsSectionDefined("scripts"))
+{
+    @RenderSection("scripts")
+}

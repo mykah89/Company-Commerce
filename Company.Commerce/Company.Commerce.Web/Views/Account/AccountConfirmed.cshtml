@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "~/Views/Account/Shared/_LayoutAnonymous.cshtml";
+}
+
+<div id="confirmed-account">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-caret-up text-warning"></i>Confirmed
+                </div>
+                <div class="panel-body text-center">
+                    <p class="text-default">Your account has been confirmed.</p>
+                    <p>To continue logging in <a href="@Url.Action("Login","Account")">click here!</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

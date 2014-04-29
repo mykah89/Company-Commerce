@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DD8812BF-EE76-4932-892A-E2199A6BC8C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Company.Commerce.Service</RootNamespace>
+    <AssemblyName>Company.Commerce.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BCrypt.Net">
+      <HintPath>..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=5.1.0.0, Culture=neutral, PublicKeyToken=a82054b837897c66, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FluentValidation-Signed.5.1.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Address\AddressService.cs" />
+    <Compile Include="Category\CategoryService.cs" />
+    <Compile Include="Category\ICategoryService.cs" />
+    <Compile Include="Email\EmailService.cs" />
+    <Compile Include="Email\IEmailService.cs" />
+    <Compile Include="Image\IImageService.cs" />
+    <Compile Include="Image\ImageService.cs" />
+    <Compile Include="Order\IOrderService.cs" />
+    <Compile Include="Order\OrderService.cs" />
+    <Compile Include="Product\IProductService.cs" />
+    <Compile Include="Product\ProductService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shipping\IShippingService.cs" />
+    <Compile Include="Shipping\ShippingService.cs" />
+    <Compile Include="ShoppingCart\IShoppingCartService.cs" />
+    <Compile Include="ShoppingCart\ShoppingCartService.cs" />
+    <Compile Include="User\IUserService.cs" />
+    <Compile Include="User\UserService.cs" />
+    <Compile Include="Utility\ServiceOperationResult.cs" />
+    <Compile Include="Validation\FluentValidation\FluentAddressValidator.cs" />
+    <Compile Include="Validation\FluentValidation\FluentCartItemValidator.cs" />
+    <Compile Include="Validation\FluentValidation\FluentExtensions.cs" />
+    <Compile Include="Validation\FluentValidation\FluentImageValidator.cs" />
+    <Compile Include="Validation\FluentValidation\FluentOrderLineValidator.cs" />
+    <Compile Include="Validation\FluentValidation\FluentOrderValidator.cs" />
+    <Compile Include="Validation\FluentValidation\FluentProductValidator.cs" />
+    <Compile Include="Validation\FluentValidation\FluentUserValidator.cs" />
+    <Compile Include="Validation\CustomValidation\PasswordValidator.cs" />
+    <Compile Include="Validation\ValidationError.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CreditCard\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Company.Commerce.Data\Company.Commerce.Data.csproj">
+      <Project>{1f21e8b4-42dc-4c35-af90-fdffdf007ad1}</Project>
+      <Name>Company.Commerce.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Company.Commerce.Entity\Company.Commerce.Entity.csproj">
+      <Project>{d6b76945-39eb-4fd2-af1e-362dd68eceb2}</Project>
+      <Name>Company.Commerce.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Company.Commerce.Framework\Company.Commerce.Framework.csproj">
+      <Project>{6415a112-6c78-45d5-a8a1-ca60263451a8}</Project>
+      <Name>Company.Commerce.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Company.Commerce.Repository\Company.Commerce.Repository.csproj">
+      <Project>{07f620e3-81f7-4b1c-96af-cd94a2c415f7}</Project>
+      <Name>Company.Commerce.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

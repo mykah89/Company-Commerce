@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Project.MVC.Entity.Models.Product>
+
+<div id="featuredproducts-store">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="product">
+                    <a class="image-container" href="@Url.Action("ProductDetails", "Store", new { productID = product.ProductID })">
+                        <img class="img-responsive" src="@Url.Content(product.DefaultImage.ImagePath)">
+                        <span class="overlay-container">
+                            <span class="overlay-content">
+                                <span class="col-md-6 col-xs-12">
+                                    @product.ProductName
+                                </span>
+                                <span class="col-md-6 col-xs-12 text-right">
+                                    @Html.CurrencyFormatter(product.UnitPrice)
+                                </span>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

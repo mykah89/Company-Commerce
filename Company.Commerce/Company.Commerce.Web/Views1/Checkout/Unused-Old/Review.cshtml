@@ -1,0 +1,88 @@
+﻿@model Project.MVC.Web.ViewModels.Checkout.Steps.ReviewViewModel
+<!--Final Checkout Process Step-->
+
+<!--Head-->
+<div class="checkout-head">
+    <div class="container">
+        <!--Checkout Bread Crumbs-->
+        <div class="row">
+            <ol class="breadcrumb">
+                <li>Shipping</li>
+                <li>Billing</li>
+                <li class="active">Review</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!--Body-->
+<div class="checkout-body">
+    <div class="container">
+        <!--Shipping & Billing Address'-->
+        <div class="row">
+            <!--Shipping Address-->
+            <div class="col-md-6">
+
+            </div>
+            <!--Billing Address-->
+            <div class="col-md-6">
+
+            </div>
+        </div>
+
+        <!--Payment Information-->
+        <div class="row">
+            <!--Credit Card (If required)-->
+            @if (Model.CreditCardPayment != null)
+            {
+                <div class="col-md-12">
+                    @Html.LabelFor(m => m.CreditCardPayment.CreditCardNumber)
+                    @Html.DisplayTextFor(m => m.CreditCardPayment.CreditCardNumber)
+                </div>
+            }
+
+            <!--Gift Cards (If required)-->
+            <div class="col-md-12">
+
+            </div>
+        </div>
+
+        <!--Order Information-->
+        <div class="row">
+            <!--Order Items-->
+            <div class="col-md-12">
+
+            </div>
+            <!--Order Totals-->
+            <div class="col-md-12">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Footer-->
+<div class="checkout-footer">
+    <div class="container">
+        <!--Navigation Controls-->
+        <div class="row">
+            <div class="col-md-12">
+                <p><span class="text-danger"><b>Note:</b></span> This is the final step before your order is submitted for processing.</p>
+                @using (Html.BeginForm("Review", "Checkout", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.HiddenFor(m => m.CheckoutInstance)
+                    <button class="btn btn-danger cancel" type="submit" name="Previous"><i class="fa fa-arrow-left"></i>&nbspPrevious</button>
+                    <button class="btn btn-success" type="submit" name="Confirm">Confirm Order&nbsp<i class="fa fa-check"></i></button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

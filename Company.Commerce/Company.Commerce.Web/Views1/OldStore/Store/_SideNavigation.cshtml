@@ -1,0 +1,58 @@
+﻿@model Project.MVC.Web.ViewModels.Store.StoreSideNavigationViewModel
+
+
+@helper dumpCategories(IEnumerable<Project.MVC.Web.ViewModels.Store.CategoryViewModel> cats)
+{
+    <ul class="nav nav-pills nav-stacked">
+        @foreach (var cat in cats)
+        {
+            if (cat.CategoryID == Model.SelectedCategoryID || cat.Descendants().Where(c => c.CategoryID == Model.SelectedCategoryID).Any())
+            {
+                <li class="active">
+                    <a href="@Url.Action("CategoryDetails", "Store", new { categoryId = cat.CategoryID })">
+                        @cat.CategoryName
+                    </a>
+                    @dumpCategories(cat.ChildCategories.AsEnumerable())
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@Url.Action("CategoryDetails", "Store", new { categoryId = cat.CategoryID })">
+                        @cat.CategoryName
+                    </a>
+                </li>
+            }
+
+        }
+    </ul>
+}
+
+<div id="sidenavigation-store">
+    <ul class="nav nav-pills nav-stacked">
+        <li><a class="home" href="@Url.Action("Index","Store")">Index</a></li>
+        @foreach (var cat in Model.AllCategories.Where(c => c.ParentCategoryID == null))
+        {
+            if (cat.CategoryID == Model.SelectedCategoryID || cat.Descendants().Where(c => c.CategoryID == Model.SelectedCategoryID).Any())
+            {
+                <li class="active">
+                    <a href="@Url.Action("CategoryDetails", "Store", new { categoryId = cat.CategoryID })">
+                        @cat.CategoryName
+                    </a>
+                    @dumpCategories(cat.ChildCategories.AsEnumerable())
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@Url.Action("CategoryDetails", "Store", new { categoryId = cat.CategoryID })">
+                        @cat.CategoryName
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+
+

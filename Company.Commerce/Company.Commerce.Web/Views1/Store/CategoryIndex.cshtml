@@ -1,0 +1,54 @@
+﻿@model Project.MVC.Web.ViewModels.Store.CategoryIndexViewModel
+
+@{
+    ViewBag.CurrentCategoryID = Model.CurrentCategory.CategoryID;
+}
+
+
+<style>
+    .fancy {
+        font-family: 'Gabriela', serif;
+    }
+
+    .main-category h3 {
+        margin-top: 5px;
+    }
+
+    .main-category .description a {
+        padding-top: 8px;
+    }
+
+    #categoryindex-store hr {
+        border-color: #d5d5d5;
+    }
+</style>
+
+<div id="categoryindex-store">
+    <!--Category Image-->
+    <div class="row">
+        <div class="col-md-12">
+            <img class="img-responsive" src="@Url.Content(Model.CurrentCategory.CategoryImage.ImagePath)" />
+        </div>
+    </div>
+    <!--Category Details-->
+    <div class="row category-details">
+        <div class="col-md-12 text-center">
+            <h3>Vulputate <strong>velit</strong> esse molestie</h3>
+            <a class="text-warning" href="@Url.Action("AllProducts", "Store", new { categoryID = Model.CurrentCategory.CategoryID })">
+                View all products in @Model.CurrentCategory.CategoryName
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="featured">
+                <h4 class="fancy promo text-center">Featured Products</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.Action("_FeaturedProducts", "Store", new { categoryID = Model.CurrentCategory.CategoryID })
+        </div>
+    </div>
+</div>

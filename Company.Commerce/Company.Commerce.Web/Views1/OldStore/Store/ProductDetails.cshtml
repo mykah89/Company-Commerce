@@ -1,0 +1,246 @@
+@model Project.MVC.Web.ViewModels.Store.ProductViewModel
+
+@*@Html.Action("_BreadCrumbs", new { categoryId = Model.CategoryID })*@
+
+<div id="productdetails-store">
+    <div class="modal fade" id="mainimage-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modalimage-container">
+                    <img src="@Model.DefaultImage.ImagePath" />
+                </div>
+                <div class="alternate-images">
+                    @for (int i = 0; i < 4; i++)
+                    {
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <img class="thumbnail" src="@Model.DefaultImage.ImagePath" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="col-md-12">
+                <div class="row">
+                    <img data-toggle="modal" data-target="#mainimage-modal" id="main-image" class="thumbnail" src="@Model.DefaultImage.ImagePath" alt="" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row alternate-images">
+                    @for (int i = 0; i < 4; i++)
+                    {
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <img class="thumbnail" src="@Model.DefaultImage.ImagePath" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="product-detail">
+                    <div class="name">
+                        <h4 class="text-warning"><strong>@Model.ProductName</strong></h4>
+                    </div>
+                    <div class="availability">
+                        <div class="col-md-12">
+                            <h5><strong>Price : @String.Format("{0:c}", Model.UnitPrice)</strong></h5>
+                        </div>
+                        <!-- Title -->
+                        @*<p><strong>Shipping</strong> : Free</p>*@
+                        @*<p><strong>Brand</strong> : Apple</p>*@
+                        @*<p><strong>Model</strong> : 5G</p>*@
+                        @if (Model.UnitsInStock > 0)
+                        {
+                            @*<p><strong>Available</strong></p>*@
+                            <p>Quantity Available: @Model.UnitsInStock</p>
+                        }
+                        else
+                        {
+                            <p><strong>Currently Available</strong></p>
+                        }
+                    </div>
+                    <br />
+                    <!-- Quantity and add to cart button -->
+                    @*<input type="text" class="form-control" placeholder="">*@
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("ProductID", Model.ProductID)
+                            @Html.Hidden("Quantity", 1)
+                            <button class="btn btn-info" type="submit">Add to cart</button>
+                        }
+                    </div>
+                    <!-- /input-group -->
+                    <!-- Add to wish list -->
+                    @*<a href="wishlist.html">+ Add to Wish List</a>*@
+                    <!-- Share button -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <!-- Description, specs and reviews -->
+    <div class="row">
+        <div class="col-md-12 additional-info">
+            <ul class="nav nav-tabs">
+                <!-- Use uniqe name for "href" in below anchor tags -->
+                <li class="active"><a href="#tab1" data-toggle="tab">Description</a></li>
+                <li><a href="#tab2" data-toggle="tab">Specs</a></li>
+                <li><a href="#tab3" data-toggle="tab">Reviews (@Model.ProductReviews.Count())</a></li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Description -->
+                <div class="tab-pane fade in active" id="tab1">
+                    <h5 class="text-warning"><strong>@Model.ProductName</strong></h5>
+                    <p>Nulla facilisi. Sed justo dui, scelerisque ut consectetur vel, eleifend id erat. Morbi auctor adipiscing tempor. Phasellus condimentum rutrum aliquet. Quisque eu consectetur erat. Proin rutrum, erat eget posuere semper, <em>arcu mauris posuere tortor</em>, in commodo enim magna id massa. Suspendisse potenti. Aliquam erat volutpat. Maecenas quis tristique turpis. Nulla facilisi. Duis sed velit at <a href="#">magna sollicitudin cursus</a> ac ultrices magna. Aliquam consequat, purus vitae auctor ullamcorper, sem velit convallis quam, a pharetra justo nunc et mauris. Vivamus diam diam, fermentum sed dapibus eget, egestas sed eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <h6><strong>Features</strong></h6>
+                    <ul>
+                        <li>Etiam adipiscing posuere justo, nec iaculis justo dictum non</li>
+                        <li>Cras tincidunt mi non arcu hendrerit eleifend</li>
+                        <li>Aenean ullamcorper justo tincidunt justo aliquet et lobortis diam faucibus</li>
+                        <li>Maecenas hendrerit neque id ante dictum mattis</li>
+                        <li>Vivamus non neque lacus, et cursus tortor</li>
+                    </ul>
+                </div>
+                <!-- Sepcs -->
+                <div class="tab-pane fade" id="tab2">
+                    <h5 class="text-warning"><strong>Product Specs:</strong></h5>
+                    <p>No Specs Available</p>
+                    @*<table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Name</strong></td>
+                                    <td>Apple iPhone 5G</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Brand</strong></td>
+                                    <td>Apple</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Modal</strong></td>
+                                    <td>Fifth Generation</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Memory</strong></td>
+                                    <td>2GB RAM</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Storage</strong></td>
+                                    <td>16GB, 32GB, 64GB</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Camera</strong></td>
+                                    <td>Front VGA, Read 8MP</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Processor</strong></td>
+                                    <td>Apple 1.25GHz Processor</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Battery</strong></td>
+                                    <td>30 Hours Standby</td>
+                                </tr>
+                            </tbody>
+                        </table>*@
+
+                </div>
+
+                <!-- Review -->
+                <div class="tab-pane fade" id="tab3">
+                    <h5 class="text-warning"><strong>Product Reviews :</strong></h5>
+                    <hr />
+                    @if (!Model.ProductReviews.Any())
+                    {
+                        <h4>Be the first to review this product!</h4>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.ProductReviews)
+                        {
+                            <div class="product-review">
+                                <h5><strong class="color">@item.Username</strong> - <span class="text-warning">@item.Rating/5</span></h5>
+                                <div class="col-md-12">
+                                    <p>@String.Format("{0:D}", @item.ReviewDate)</p>
+                                </div>
+                                <p>@item.ReviewText</p>
+                            </div>
+                        }
+                    }
+                    <hr />
+
+                    <h5><strong>Write a Review</strong></h5>
+                    <a href="@Url.Action("Index", "ProductReviews", new { productId = Model.ProductID })" class="btn btn-info">Write a Review</a>
+                    <hr />
+                    @*<form role="form">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                            </div>
+                            <div class="form-group">
+                                <label for="rating">Rating</label>
+                                <!-- Dropdown menu -->
+                                <select class="form-control">
+                                    <option>Rating</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Review</label>
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-info">Send</button>
+                            <button type="reset" class="btn btn-default">Reset</button>
+                        </form>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+
+    <script type="text/javascript">
+        $(document).ready()
+        {
+            $(document.body).on("click", '.alternate-images img', alternateImageClick)
+        }
+
+        function alternateImageClick() {
+            var mainImg = $('#main-image');
+
+            var src = $(this).attr("src");
+
+            mainImg.attr("src", src);
+            $('#mainimage-modal .modalimage-container img').attr("src", src);
+        }
+    </script>
+}
+
+

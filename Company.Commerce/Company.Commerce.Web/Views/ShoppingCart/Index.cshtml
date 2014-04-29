@@ -1,0 +1,159 @@
+﻿@model Company.Commerce.Web.ViewModels.ShoppingCart.ShoppingCartIndexViewModel
+
+
+@section pagetitle{
+    <div class="row">
+        <div id="page-title" class="col-md-12">
+            <h2><i class="fa fa-shopping-cart"></i>Your Cart&nbsp;<small>Items</small></h2>
+            <hr />
+        </div>
+    </div>
+}
+
+<div id="index-shoppingcart">
+    <!--Cart Updates-->
+    @if (Model.CartUpdates.Any())
+    {
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-exclamation-circle text-warning"></i>Important
+                    </div>
+                    <div class="panel-body">
+                        @foreach (var cartUpdate in Model.CartUpdates)
+                        {
+                            <h4>@cartUpdate</h4>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <!--Cart Items Table-->
+    <div class="row">
+        <div class="col-md-12">
+            <h4>@Html.ValidationSummary(true)</h4>
+            @if (!Model.CartItems.Any())
+            {
+                <h2 class="text-center">There are no items in your shopping cart.</h2>
+                <h3 class="text-center">@Html.ActionLink("Shop Now", "Index", "Store")</h3>
+            }
+            else
+            {
+            <!-- Table -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th></th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <tr>
+                                <!-- Index -->
+                                <td>@(Model.CartItems.IndexOf(item) + 1)</td>
+                                <!-- Product  name -->
+                                <td><a href="@Url.Action("ProductDetails", "Store" , new { productid=item.ProductId })">@item.Product.Name</a></td>
+                                <!-- Product image -->
+                                <td>
+                                    <a href="@Url.Action("ProductDetails", "Store" , new { productid=item.ProductId })">
+                                        @*<img src="@Url.Content(item.Product.ImagePath)" alt="" class="thumbnail" />*@
+                                    </a>
+                                </td>
+                                <!-- Quantity with refresh and remove button -->
+                                <td>
+                                    <div class="cart-update-container">
+                                        <div class="input-group">
+                                            @using (Html.BeginForm("UpdateCartItemQuantity", "ShoppingCart", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("cartItemId", item.CartItemId)
+                                                <input type="text" name="quantity" class="form-control" placeholder="@item.Quantity" />
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i></button>
+                                            }
+                                            @using (Html.BeginForm("RemoveFromCart", "ShoppingCart", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("cartItemId", item.CartItemId)
+                                                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                                            }
+                                        </div>
+                                    </div>
+                                </td>
+                                <!-- Unit price -->
+                                <td>@item.Product.Price</td>
+                                <!-- Total cost -->
+                                <td>@(item.Product.Price * item.Quantity)</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                @using (Html.BeginForm("Index", "ShoppingCart", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="shipping">
+                                        <div class="input-group">
+                                            @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control", placeholder = "Postal Code" })
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-primary" type="submit">Calculate</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            <!--Apply Promo-->
+                                    <div class="promo">
+                                        <div class="input-group">
+                                            <input name="promotionalCode" type="text" class="form-control" placeholder="Promo Code" />
+                                            <div class="input-group-btn">
+                                                <button class="btn btn-primary" type="submit">Apply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                @if (Model.ShippingCost > 0)
+                                {
+                                    <p>Shipping</p>
+                                }
+                                <p>Total</p>
+                            </td>
+                            <td>
+                                @if (Model.ShippingCost > 0)
+                                {
+                                    <p>@String.Format("{0:c}", Model.ShippingCost)</p>
+                                }
+                                <p>@String.Format("{0:c}", Model.ShoppingCartTotalPrice)</p>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            <!--Navigation Controls-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn-toolbar pull-right">
+                            <div class="btn-group">
+                                <a href="@Url.Action("Index", "Store" )" class="btn btn-danger">Continue shopping</a>
+                            </div>
+                            <div class="btn-group">
+                                <a href="@Url.Action("Index", "Checkout" )" class="btn btn-primary">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="row">
+                        <a href="@Url.Action(" checkout","paypal")" class="btn pull-right"><img class="pull-right" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="left" style="margin-right:7px;"></a>
+                    </div>*@
+            }
+        </div>
+    </div>
+</div>

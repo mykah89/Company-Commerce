@@ -1,0 +1,56 @@
+﻿@using PagedList.Mvc
+@model Project.MVC.Web.ViewModels.Store.LeafCategoryViewModel
+
+@*@Html.Action("_BreadCrumbs", new { categoryId = Model.CurrentCategory.Id })*@
+
+<!-- Items List starts -->
+<div id="leafcategory-store">
+    <div class="row main-category">
+        <div class="col-md-12">
+            <h4>@Model.CurrentCategory.CategoryName</h4>
+            <img src="@Model.CurrentCategory.CategoryImage.ImagePath" />
+            <h4><a class="text-warning" href="@Url.Action("AllProducts", "Store", new { categoryId = Model.CurrentCategory.CategoryID })">View all products</a></h4>
+        </div>
+    </div>
+    <div class="row preview-products">
+        @foreach (var item in Model.Products)
+        {
+        <!-- Item #1 -->
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class=".panel .panel-default">
+                    <div class="header">
+                            <h4><i class="fa fa-circle-o text-warning"></i>@item.ProductName</h4>
+                        </div>
+                    <div class="details">
+                        <a href="@Url.Action("ProductDetails", "Store", new { productId = item.ProductID })">
+                            <img class="thumbnail" src="@item.DefaultImage.ImagePath" alt="" />
+                            <p>@item.ProductName</p>
+                            <p>@Html.CurrencyFormatter(item.UnitPrice)</p>
+                        </a>
+                        <div class="col-md-6">
+                            <a href="@Url.Action("ProductDetails", "Store", new { productId = item.ProductID })" class="btn btn-primary pull-left">Details</a>
+                        </div>
+                        <div class="col-md-6">
+                            @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("ProductID", item.ProductID)
+                                @Html.Hidden("Quantity", 1)
+                                <button class="btn btn-danger pull-right">Add To Cart</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <!-- Items List ends -->
+    @*<div class="row">
+            <div class="col-md-12">
+                 Pagination
+                Html.PagedListPager(Model.Products, c => Url.Action("Index", "Store", new { categoryId = Model.CurrentCategory.CategoryID, pageNumber = c }))
+            </div>
+        </div>*@
+</div>
+

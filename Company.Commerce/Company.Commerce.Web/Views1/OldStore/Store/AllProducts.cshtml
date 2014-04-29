@@ -1,0 +1,39 @@
+﻿@model PagedList.IPagedList<Project.MVC.Web.ViewModels.Store.ProductViewModel>
+@using PagedList.Mvc
+
+<div id="allproducts-store">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class=".panel .panel-default">
+                    <div class="header">
+                            <h4><i class="fa fa-circle-o text-warning"></i>@product.ProductName</h4>
+                        </div>
+                    <div class="details">
+                        <a href="@Url.Action("ProductDetails", "Store", new { productId = product.ProductID })">
+                            <img class="thumbnail" src="@product.DefaultImage.ImagePath" alt="" />
+                            <p>@product.ProductName</p>
+                            <p>@Html.CurrencyFormatter(product.UnitPrice)</p>
+                        </a>
+                        <div class="col-md-6">
+                            <a href="@Url.Action("ProductDetails", "Store", new { productId = product.ProductID })" class="btn btn-primary pull-left">Details</a>
+                        </div>
+                        <div class="col-md-6">
+                            @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("ProductID", product.ProductID)
+                                @Html.Hidden("Quantity", 1)
+                                <button class="btn btn-danger pull-right">Add To Cart</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        @Html.PagedListPager(Model, (i => Url.Action("AllProducts", "Store", new { categoryId = ViewBag.CurrentCategoryId, pageNumber = i })))
+    </div>
+</div>

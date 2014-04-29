@@ -1,0 +1,155 @@
+﻿@model Company.Commerce.Entity.Models.Product
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .text-fancy, .text-fancy h4 {
+        font-family: 'Gabriela', serif;
+    }
+
+    .product-details .availability {
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .product-details h4 {
+        font-size: 24px;
+    }
+
+    .img-container {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .main-img-container {
+        margin-bottom: 0px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        min-height: 150px;
+    }
+
+    #productdetails-store .thumbnail {
+        /*max-width: 76px;*/
+        /*max-height: 76px;*/
+    }
+
+    .return-arrow {
+        color: #222222;
+        font-size: 30px;
+        margin-left: 15px;
+    }
+
+        .return-arrow:hover {
+            color: black;
+            text-decoration: none;
+        }
+</style>
+
+<!-- Page title -->
+@section pagetitle
+{
+    <div class="row">
+        <div id="page-title" class="col-md-12">
+            <h2><i class="fa fa-plus"></i>Product&nbsp;<small>Details</small></h2>
+            <hr />
+        </div>
+    </div>
+}
+
+<div id="productdetails-store">
+    <div class="row">
+        @if (!String.IsNullOrWhiteSpace(ViewBag.ReturnUrl as String))
+        {
+            <div class="col-md-12">
+                <a class="return-arrow" href="@ViewBag.ReturnUrl"><i class="fa fa-arrow-circle-o-left text-danger"></i></a>
+            </div>
+        }
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="thumbnail main-img-container">
+                        <img class="img-responsive main-img" src="@Url.Content(Model.AssociatedImages.FirstOrDefault(i => i.IsDefault == true).Image.ImagePath)" />
+                    </div>
+                </div>
+            </div>
+            @if (Model.AssociatedImages.Any())
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        @foreach (var assocImage in Model.AssociatedImages)
+                        {
+                            <div class="col-md-3 col-sm-3 col-xs-3 thumbnail">
+                                <a class="thumb-link" href="#" data-imgsrc="@Url.Content(assocImage.Image.ImagePath)">
+                                    <img src="@Url.Content(assocImage.Image.ImagePath)" />
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6 text-fancy product-details">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <h4>@Model.Name</h4>
+                    </div>
+                    <div class="row availability">
+                        @if (Model.UnitsInStock > 0)
+                        {
+                            <hr />
+                            <div class="col-md-4 col-sm-6 col-xs-6 text-center">
+                                <p>Availability</p>
+                                <p>@Model.UnitsInStock</p>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-6 text-center">
+                                <p>Price</p>
+                                <p>@Model.Price</p>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <span class="pull-right">
+                                    @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post, new { role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(m => m.ProductId)
+                                        @Html.Hidden("quantity", 1)
+                                        <button class="btn btn-danger" type="submit">Add To Cart</button>
+                                    }
+                                </span>
+                            </div>
+                        }
+                        else
+                        {
+                            <hr />
+                            <div class="col-md-12 text-center">
+                                <h4>We're sorry, this product is currently unavailable.</h4>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <hr />
+            <span class="col-md-12 text-fancy">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam</span>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("click", ".thumb-link", function () {
+                var imgSrc = $(this).attr('data-imgsrc');
+                $('.main-img').attr('src', imgSrc);
+            })
+        });
+    </script>
+}
+

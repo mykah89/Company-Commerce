@@ -1,0 +1,18 @@
+﻿@model List<Proj.MVC.ViewModels.Store.CategoryViewModel>
+
+<!-- Breadcrumb -->
+<ul class="breadcrumb">
+    <li><a href="@Url.Action("Index", "Store")">Store</a> <span class="divider"></span></li>
+
+    @foreach (var cat in Model)
+    {
+        if (cat.Id == (Int32)ViewBag.CurrentCategoryId)
+        {
+        <li class="active">@cat.Name</li>
+        }
+        else
+        {
+        <li><a href="@Url.Action("Index", "Store", new { categoryId = cat.Id })">@cat.Name</a> <span class="divider"></span></li>
+        }
+    }
+</ul>

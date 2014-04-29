@@ -1,0 +1,18 @@
+﻿@model List<Project.MVC.Web.ViewModels.Store.ProductViewModel>
+
+<div id="relatedproducts-store">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-3">
+            <div class=".panel .panel-default">
+                <div class="details">
+                    <a href="@Url.Action("ProductDetails", "Store", new { productId = product.ProductID })">
+                        <img class="thumbnail" src="@product.DefaultImage.ImagePath" />
+                        <p>@product.ProductName</p>
+                        <p>@Html.CurrencyFormatter(product.UnitPrice)</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

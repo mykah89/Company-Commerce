@@ -1,0 +1,36 @@
+﻿@model Company.Commerce.Web.ViewModels.Checkout.CreditCardViewModel
+
+<div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.CardNumber)
+                @Html.TextBoxFor(m => m.CardNumber, new { @class = "form-control", placeholder = "Card #" })
+                @Html.ValidationMessageFor(m => m.CardNumber)
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(m => m.ExpirationMonth)
+                @Html.DropDownListFor(m => m.ExpirationMonth, new SelectList(Model.ExpirationMonths), new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ExpirationMonth)
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                @Html.LabelFor(m => m.ExpirationYear)
+                @Html.DropDownListFor(m => m.ExpirationYear, new SelectList(Model.ExpirationYears, "Date", "Year"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ExpirationYear)
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                @Html.LabelFor(m => m.VerificationNumber)
+                @Html.TextBoxFor(m => m.VerificationNumber, new { @class = "form-control", placeholder = "Ver. #" })
+                @Html.ValidationMessageFor(m => m.VerificationNumber)
+            </div>
+        </div>
+    </div>
+</div>
+
+

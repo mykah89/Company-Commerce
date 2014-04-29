@@ -1,0 +1,119 @@
+@model Project.MVC.Web.ViewModels.Account.AccountIndexViewModel
+
+<div id="index-account">
+    @if (Model.ImportantAccountUpdates.Any())
+    {
+        <!--Important AccountUpdates-->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-exclamation-circle text-warning"></i>Important
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            @foreach (var update in Model.ImportantAccountUpdates)
+                            {
+                                <h4 class="text-success text-center">@update.ToString()</h4>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <!--Account Details-->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-user text-warning"></i>Account Details
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.User.Email, new { @class = "control-label" })
+                        <p>
+                            <span>@Model.User.Email</span> <a class="pull-right text-warning" href="@Url.Action("EditEmail","Account")">Edit</a>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <a href="@Url.Action("EditEmail","Account")" class="btn btn-danger pull-left">Edit Email</a>
+                        <a href="@Url.Action("EditPassword","Account")" class="btn btn-danger pull-right">Edit Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Profile Details-->
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-user text-warning"></i>Profile Details
+                </div>
+                <div class="panel-body">
+                    @if (Model.UserProfile == null)
+                    {
+                        <a href="@Url.Action("EditProfile", "Account")" class="btn btn-primary">Update Your Profile</a>
+                    }
+                    else
+                    {
+                        <div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserProfile.FirstName, new { @class = "control-label" })
+                                <p>@Model.UserProfile.FirstName</p>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserProfile.LastName, new { @class = "control-label" })
+                                <p>@Model.UserProfile.LastName</p>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserProfile.PhoneNumber, new { @class = "control-label" })
+                                <p>@Model.UserProfile.PhoneNumber</p>
+                            </div>
+                        </div>
+                        <a href="@Url.Action("EditProfile", "Account")" class="btn btn-danger pull-right">Edit</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Recent Orders-->
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.RecentOrders.Any())
+            {
+                <div class="recentorders-container">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bullseye text-warning"></i>Most Recent Orders
+                        </div>
+                        <div class="panel-body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model.RecentOrders)
+                                    {
+                                        <tr>
+                                            <td>@order.OrderID</td>
+                                            <td>@String.Format("{0:d}", order.OrderDate)</td>
+                                            <td>@Html.CurrencyFormatter(order.TotalPrice)</td>
+                                            <td>@order.OrderStatus.ToString()</td>
+                                            <td><a href="@Url.Action("OrderDetails", "Account", new { orderId = order.OrderID })" class="btn btn-primary">Details</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

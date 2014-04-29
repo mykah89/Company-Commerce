@@ -1,0 +1,24 @@
+﻿@model PagedList.IPagedList<Project.MVC.Web.ViewModels.Store.CategoryViewModel>
+@using PagedList.Mvc;
+
+<div id="allcategories-store">
+    <div class="row">
+        @foreach (var category in Model)
+        {
+            <div class="col-md-4">
+                <div class=".panel .panel-default">
+                    <div class="details text-center">
+                        <a href="@Url.Action("CategoryDetails", "Store", new { categoryId = category.CategoryID })">
+                            <img src="@category.CategoryImage.ImagePath" />
+                            <h4>@category.CategoryName</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        @Html.PagedListPager(Model, (i => Url.Action("AllCategories", "Store", new { parentCategoryId = ViewBag.CurrentCategoryId, pageNumber = i })))
+    </div>
+</div>
+

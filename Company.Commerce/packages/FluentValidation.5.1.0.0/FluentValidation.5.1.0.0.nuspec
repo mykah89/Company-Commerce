@@ -3,6 +3,7 @@
   <metadata>
     <id>FluentValidation</id>
     <version>5.1.0.0</version>
+    <title>FluentValidation</title>
     <authors>Jeremy Skinner</authors>
     <owners>Jeremy Skinner</owners>
     <licenseUrl>http://fluentvalidation.codeplex.com/license</licenseUrl>
@@ -11,6 +12,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A validation library for .NET that uses a fluent interface to construct strongly-typed validation rules.</description>
     <summary>A validation library for .NET that uses a fluent interface to construct strongly-typed validation rules.</summary>
+    <releaseNotes />
+    <copyright />
     <language>en-US</language>
   </metadata>
 </package>

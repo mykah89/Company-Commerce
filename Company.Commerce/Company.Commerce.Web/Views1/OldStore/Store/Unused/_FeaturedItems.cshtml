@@ -1,0 +1,6 @@
+﻿@model List<Proj.MVC.ViewModels.Store.ProductViewModel>
+
+@foreach (var item in Model)
+{
+    @Html.DisplayFor(m => item, "FeaturedProduct");
+}

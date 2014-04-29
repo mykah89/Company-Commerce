@@ -1,0 +1,26 @@
+﻿@model Project.MVC.Web.ViewModels.Store.StoreIndexViewModel
+
+<div id="index-store">
+    <div class="row text-center main-category">
+        <div class="col-md-12">
+            <h4>@Model.DisplayCategory.CategoryName</h4>
+            <a href="@Url.Action("CategoryDetails", "Store", new { categoryId = Model.DisplayCategory.CategoryID })"><img src="@Model.DisplayCategory.CategoryImage.ImagePath" /></a>
+            <h4><a class="text-warning" href="@Url.Action("AllCategories","Store")">View all categories</a></h4>
+        </div>
+    </div>
+    <div class="row text-center preview-categories">
+        @foreach (var item in Model.DisplayCategories)
+        {
+            <div class="col-md-3">
+                <div class=".panel .panel-default">
+                    <div class="details">
+                        <a href="@Url.Action("CategoryDetails", "Store", new { categoryId = item.CategoryID })">
+                        <img src="@item.CategoryImage.ImagePath" />
+                        <h4>@item.CategoryName</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

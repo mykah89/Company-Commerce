@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="store-layout">
+    <!--Page Title-->
+    @if (IsSectionDefined("pagetitle"))
+    {
+        @RenderSection("pagetitle", false)
+    }
+    else
+    {
+        <div class="row">
+            <div id="page-title" class="col-md-12">
+                <h2><i class="fa fa-level-down"></i>Store&nbsp;<small>Index</small></h2>
+                <hr />
+            </div>
+        </div>
+    }
+    <!--Head Part-->
+    <div class="row">
+        <div id="headpart-store">
+            <div class="col-md-9 col-md-offset-3">
+                <div class="main">
+                    <!--Bread Crumbs-->
+                    <div class="col-md-8">
+                        @Html.Action("_StoreBreadCrumbs", "Store", new { currentCategoryId = ViewBag.CurrentCategoryId })
+                    </div>
+                    <!--Order Section-->
+                    <div class="col-md-4">
+                        @RenderSection("orderby", false)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <!--Navigation-->
+            @Html.Action("_StoreNavigation", "Store", new { currentCategoryID = ViewBag.CurrentCategoryId })
+
+            <!--Sorting-->
+            @*@RenderSection("sidesort", false)*@
+
+            <!--Promo-->
+            @*@Html.Action("_StorePromotional")*@
+        </div>
+        <div class="col-md-9">
+            <!--Body Content-->
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@RenderSection("scripts", false)

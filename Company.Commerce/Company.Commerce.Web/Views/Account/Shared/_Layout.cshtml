@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Page content -->
+<div id="account-layout">
+    @if (IsSectionDefined("pagetitle"))
+    {
+        @RenderSection("pagetitle", false)
+    }
+    else
+    {
+        <div class="row">
+            <div id="page-title" class="col-md-12">
+                <h2><i class="fa fa-user"></i>Account&nbsp;<small>Details</small></h2>
+                <hr />
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a class="home" href="@Url.Action("Index", "Account")">My Account</a></li>
+                @*<li><a href="wishlist.html">Wish List</a></li>*@
+                @*<li><a href="orderhistory.html">Order History</a></li>*@
+                @*<li><a href="@Url.Action("EditProfile", "Account")">Edit Profile</a></li>*@
+                @*<li><a href="@Url.Action("EditAddresses", "Account")">Manage Addresses</a></li>*@
+                <li><a href="@Url.Action("OrderHistory", "Account")">Order History</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>

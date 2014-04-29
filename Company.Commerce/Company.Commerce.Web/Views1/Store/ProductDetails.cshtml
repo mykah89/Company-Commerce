@@ -1,0 +1,125 @@
+﻿@model Company.Commerce.Entity.Models.Product
+
+
+<style>
+    .text-fancy, .text-fancy h4 {
+        font-family: 'Gabriela', serif;
+    }
+
+    .product-details .availability {
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .product-details h4 {
+        font-size: 24px;
+    }
+
+    .img-container {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .main-img-container {
+        margin-bottom: 0px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        min-height: 400px;
+    }
+
+    #productdetails-store .thumbnail {
+        /*max-width: 76px;*/
+        /*max-height: 76px;*/
+    }
+</style>
+
+
+<div id="productdetails-store">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="thumbnail main-img-container">
+                        <img class="img-responsive main-img" src="@Url.Content(Model.AssociatedImages.FirstOrDefault(i => i.IsDefault == true).Image.ImagePath)" />
+                    </div>
+                </div>
+            </div>
+            @*@if (Model.AdditonalImages.Any())
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            @foreach (var addImage in Model.AdditonalImages)
+                            {
+                                <div class="col-md-3 col-sm-3 col-xs-3 thumbnail">
+                                    <a class="thumb-link" href="#" data-imgsrc="@Url.Content(addImage.ImagePath)">
+                                        <img src="~/Content/images/placeholders/ProductListImage.jpg" />
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }*@
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6 text-fancy product-details">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <h4>@Model.Name</h4>
+                    </div>
+                    <div class="row availability">
+                        @if (Model.UnitsInStock > 0)
+                        {
+                            <hr />
+                            <div class="col-md-4 col-sm-6 col-xs-6 text-center">
+                                <p>Availability</p>
+                                <p>@Model.UnitsInStock</p>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-6 text-center">
+                                <p>Price</p>
+                                <p>@Model.Price</p>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <span class="pull-right">
+                                    @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post, new { role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(m => m.ProductId)
+                                        @Html.Hidden("quantity", 1)
+                                        <button class="btn btn-danger" type="submit">Add To Cart</button>
+                                    }
+                                </span>
+                            </div>
+                        }
+                        else
+                        {
+                            <hr />
+                            <div class="col-md-12 text-center">
+                                <h4>We're sorry, this product is currently unavailable.</h4>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <hr />
+            <span class="col-md-12 text-fancy">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam</span>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).on("click", ".thumb-link", function () {
+                var imgSrc = $(this).attr('data-imgsrc');
+                $('.main-img').attr('src', imgSrc);
+            })
+        });
+    </script>
+}
+

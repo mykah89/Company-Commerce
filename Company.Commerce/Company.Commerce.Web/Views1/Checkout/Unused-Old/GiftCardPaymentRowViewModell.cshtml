@@ -1,0 +1,68 @@
+﻿@model Project.MVC.Web.ViewModels.Checkout.GiftCardPaymentViewModel
+
+@{
+    var containerPrefix = (String)ViewBag.ContainerPrefix;
+
+    var contPrefix = ViewData["ContainerPrefix"] as String ?? "";
+
+    if (String.IsNullOrEmpty(containerPrefix))
+    {
+        if (!String.IsNullOrEmpty(contPrefix))
+        {
+            containerPrefix = contPrefix;
+        }
+    }
+
+    var rowGuid = @Guid.NewGuid().ToString("N");
+}
+
+<div class="row form-group" data-gcrownumber="@rowGuid">
+    @using (Html.BeginCollectionItem(containerPrefix + "GiftCardPayments"))
+    {
+        <div class="row">
+            <div class="col-md-12 text-center">
+                @Html.ValidationMessageFor(m => m.Balance)
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-12">
+                @Html.LabelFor(m => m.GiftCardNumber, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.GiftCardNumber, new { @class = "form-control", placeholder = "Gift Card #", @data_attribute = "gcNumber" })
+                    @Html.ValidationMessageFor(m => m.GiftCardNumber)
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-4 control-group">
+                    <div class="col-md-6">
+                        @if (Model.Balance <= 0)
+                        {
+                            <a id="btn-checkbal" data-gcguid="@rowGuid" class="btn btn-success form-control">Check</a>
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <a id="btn-remove" data-gcguid="@rowGuid" class="btn btn-danger form-control">Remove</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Html.LabelFor(m => m.GiftCardPin, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.GiftCardPin, new { @class = "form-control", placeholder = "Pin #", @data_attribute = "gcPin" })
+                    @Html.ValidationMessageFor(m => m.GiftCardPin)
+                </div>
+                <div data-attribute="gcBalance">
+                    @if (Model.Balance > 0)
+                    {
+                        @Html.LabelFor(m => m.Balance, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-4">
+                            <input disabled="disabled" class="form-control" type="text" value="@Model.Balance">
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

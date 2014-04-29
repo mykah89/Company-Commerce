@@ -1,0 +1,331 @@
+﻿@model Project.MVC.Web.ViewModels.Checkout.Steps.BillingInformationViewModel
+
+@helper checkoutCrumbs(Int32 stepNumber)
+{
+    var curStepNum = 1;
+
+    if (curStepNum == stepNumber)
+    {
+        <h2><i class="fa fa-dot-circle-o color"></i></h2>
+    }
+    else if (curStepNum > stepNumber)
+    {
+        <h2><i class="fa fa-circle"></i></h2>
+    }
+    else
+    {
+        <h2><i class="fa fa-circle-o"></i></h2>
+    }
+}
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-3">
+            <h2><i class="fa fa-pencil text-danger"></i><b>Billing Details</b></h2>
+        </div>
+
+        <div class="col-md-7">
+            <div class="col-md-8 col-md-push-3">
+                <div class="row text-center">
+                    <div class="col-md-2">
+                        @checkoutCrumbs(0)
+                        <h4>Shipping</h4>
+                    </div>
+                    <div class="col-md-1">
+                        <h3><i class="fa fa-minus"></i></h3>
+                    </div>
+                    <div class="col-md-2">
+                        @checkoutCrumbs(1)
+                        <h4>Billing</h4>
+                    </div>
+                    <div class="col-md-1">
+                        <h3><i class="fa fa-minus"></i></h3>
+                    </div>
+                    <div class="col-md-2">
+                        @checkoutCrumbs(2)
+                        <h4>Review</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <hr />
+    </div>
+
+
+    <div class="row">
+        <div id="form-div">
+            @using (Html.BeginForm("BillingInformation", "Checkout", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.HiddenFor(t => t.CheckoutInstance)
+                @*@Html.HiddenFor(m => m.CheckoutId)*@
+                <div class="col-md-8">
+
+                    @*BillingAddressDetailsHead*@
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <h4><b>Billing Address</b></h4>
+                            </div>
+                            <div class="col-md-9 text-right">
+                                <h4><b>Same as shipping : </b>@Html.CheckBoxFor(m => m.BillingSameAsShipping)</h4>
+                            </div>
+                        </div>
+                    </div>
+                    @*BillingAddressDetails*@
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.EditorFor(m => m.BillingAddress, "AddressViewModel")
+                        </div>
+                    </div>
+                    <hr />
+
+                    @*Credit Card Details*@
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h4><b>Credit Card</b></h4>
+                                </div>
+                                <div class="col-sm-9">
+                                    @*<h4><b>@Html.ValidationMessageFor(m => m.CreditCard)</b></h4>*@
+                                </div>
+                            </div>
+                            @Html.EditorFor(m => m.CreditCardPayment, "CreditCardPaymentViewModel")
+                        </div>
+                    </div>
+                    <hr />
+
+                    @*GiftCardHeader*@
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="col-md-12">
+                                        <h4><b>Gift Card</b></h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4><b id="giftcard-updates"></b></h4>
+                                        </div>
+                                        <div class="pull-right btn-group">
+                                            <a id="add-another" class="btn btn-primary form-control">Add&nbsp<i class="fa fa-plus"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*Gift Card Details*@
+                    <div class="row">
+                        <div id="gift-cards">
+                            @if (Model != null)
+                            {
+                                if (Model.GiftCardPayments != null)
+                                {
+                                    foreach (var item in Model.GiftCardPayments)
+                                    {
+                                        @Html.EditorFor(m => item, "GiftCardPaymentRowViewModel", "model")
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="col-md-4">
+                    @*DisplayShippingAddress*@
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><b>Shipping Address</b></h4>
+                        </div>
+                        <div class="col-md-12">
+                            @Html.DisplayFor(m => m.ShippingAddress, "AddressCheckout")
+                        </div>
+                    </div>
+
+                    @*DisplayOrderInformation*@
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><b>Order Information</b></h4>
+                            <br />
+                            <div class="col-md-12">
+                                @Html.DisplayFor(m => m.OrderDetails, "OrderDetailsCheckout")
+                            </div>
+                            <hr />
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="control-label col-md-9">Tax:</label>
+                                        <div class="col-md-3 control-label">
+                                            @Html.CurrencyFormatter(Model.Tax)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="control-label col-md-9">Shipping:</label>
+                                        <div class="col-md-3 control-label">
+                                            @Html.CurrencyFormatter(Model.ShippingCost)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="control-label col-md-9">Total:</label>
+                                        <div class="col-md-3 control-label">
+                                            @Html.CurrencyFormatter((Model.OrderDetails.Sum(i => i.UnitPrice * i.Quantity) + Model.ShippingCost + Model.Tax))
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> @*End order totals*@
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <p><span class="text-danger"><b>Note:</b></span> You will be able to review your information at the next step.</p>
+
+                <button class="btn btn-danger cancel" type="submit" name="Previous"><i class="fa fa-arrow-left"></i>&nbspPrevious</button>
+                <button class="btn btn-primary" type="submit" name="Next">Next&nbsp<i class="fa fa-arrow-right"></i></button>
+            }
+        </div>
+    </div>
+</div>
+<br />
+
+@section scripts
+    {
+    @Scripts.Render("~/bundles/jquery")
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryajax")
+
+
+    @*<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js"></script>*@
+    <script type="text/javascript">
+        //Required to validate gift cards as they are added.
+        var giftCardUpdateMessageContainer = $('#giftcard-updates');
+
+        //Required to rehook the validation for dynamic content
+        function rehookUnobtrusive() {
+            var form = $("#form-div").find('form');
+            form.removeData('validator')
+            form.removeData('unobtrusiveValidation');
+            jQuery.validator.unobtrusive.parse(form);
+        };
+
+        function checkBalance() {
+            var button = $(this);
+            var gcGuid = $(this).data("gcguid");
+            var gcRow = $(document).find('[data-gcRowNumber=' + gcGuid + ']');
+            var gcNumber = $.trim(gcRow.find('[data-attribute=gcNumber]').val());
+            var gcPin = $.trim(gcRow.find('[data-attribute=gcPin]').val());
+
+            if (!gcNumber, !gcPin) {
+                gcUpdateMessage(false, "Missing information.");
+            }
+            else {
+                $.get("@Url.Action("CheckBalance","GiftCard")", { "giftCardNumber": gcNumber, "giftCardPin": gcPin }).success(function (data) {
+                    if (data.Success) {
+
+                        button.remove();
+
+                        gcUpdateMessage(true, 'Balance remaining : ' + data.Data);
+
+                        var controlsContainer = gcRow.find('[data-attribute=gcControls]');
+
+                        //var newHtml = '<label class="col-md-2 control-label">Balance</label>' +
+                        //    '<div class="col-md-4">' +
+                        //    '<input disabled=disabled class="form-control" type="text" value="' + data.Data + '">' +
+                        //    '</div>';
+
+                        var nHtml = '<div class="input-group">' +
+                        '<input disabled="disabled" class="form-control text-center" type="text" value="$' + data.Data + '">' +
+                        '<div class="input-group-btn">' +
+                            '<a id="btn-remove" data-gcguid="' + gcGuid + '" class="btn btn-danger"><small><i class="fa fa-minus"></i></small></a>' +
+                        '</div>' +
+                        '</div>';
+
+                        controlsContainer.html(nHtml);
+
+                        gcRow.find(':input').attr("readonly", true);
+                    }
+                    else {
+                        gcUpdateMessage(false, data.Errors.toString());
+                    }
+                }).fail(function () {
+                    gcUpdateMessage(false, "There was a problem contacting the server.");
+                });
+            }
+        };
+
+        function addAnother() {
+            $.get("@Url.Action("GiftCardRow", "Checkout")", null).success(function (data) {
+                $('#gift-cards').append(data)
+                rehookUnobtrusive();
+            }).fail(function () {
+                gcUpdateMessage(false, "There was a problem contacting the server.")
+            });
+        };
+
+        function removeCard() {
+            var gcGuid = $(this).data("gcguid");
+
+            $(document).find('[data-gcRowNumber=' + gcGuid + ']').remove();
+        }
+
+        $(document).ready(function () {
+            //On will retain the event functionality
+            //if more buttons are added dynamically.
+            $(document.body).on("click", '#add-another', addAnother);
+            $(document.body).on("click", '#btn-remove', removeCard);
+            $(document.body).on("click", '#btn-checkbal', checkBalance);
+        });
+
+        function gcUpdateMessage(success, value) {
+
+            var value = value || "";
+
+            var gcUpdates = giftCardUpdateMessageContainer;
+
+            //In case the contianer is still animating
+            //jump to the final state of the animation and clear the que
+            //so we can start the next animation
+            gcUpdates.stop(false, true);
+
+            //The final state of the animation results in the element not being visible
+            //so it must be shown again.
+            if (!gcUpdates.visible) {
+                gcUpdates.show();
+            }
+
+            //Clear any existing classes on this element
+            //so we can style it how we want.
+            gcUpdates.removeClass();
+
+            if (success) {
+                //Display a friendly user message
+                gcUpdates.addClass("text-success")
+                    .html("Success. " + value)
+                    .fadeOut(4000);
+            }
+            else {
+                gcUpdates.addClass("text-danger")
+                    .html("Failure. " + value)
+                    .fadeOut(4000);
+            }
+        }
+
+    </script>
+}
+
+@*<script src="~/Scripts/jquery-2.0.3.min.js"></script>*@
+

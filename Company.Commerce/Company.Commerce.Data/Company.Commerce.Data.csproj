@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1F21E8B4-42DC-4C35-AF90-FDFFDF007AD1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Company.Commerce.Data</RootNamespace>
+    <AssemblyName>Company.Commerce.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BCrypt.Net">
+      <HintPath>..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EntityFramework\Context\Initializers\DeleteCreateMainContextDbAlways.cs" />
+    <Compile Include="EntityFramework\Context\Initializers\MainContextInitializer.cs" />
+    <Compile Include="EntityFramework\TypeMaps\AddressMap.cs" />
+    <Compile Include="EntityFramework\TypeMaps\CartItemMap.cs" />
+    <Compile Include="EntityFramework\TypeMaps\CategoryImageXrefMap.cs" />
+    <Compile Include="EntityFramework\TypeMaps\CategoryMap.cs" />
+    <Compile Include="EntityFramework\TypeMaps\ImageMap.cs" />
+    <Compile Include="EntityFramework\TypeMaps\OrderLineMap.cs" />
+    <Compile Include="EntityFramework\TypeMaps\OrderMap.cs" />
+    <Compile Include="EntityFramework\TypeMaps\ProductCategoryXrefMap.cs" />
+    <Compile Include="EntityFramework\TypeMaps\ProductImageXrefMap.cs" />
+    <Compile Include="EntityFramework\TypeMaps\ProductMap.cs" />
+    <Compile Include="EntityFramework\TypeMaps\UserAddressXrefMap.cs" />
+    <Compile Include="IDbContext.cs" />
+    <Compile Include="IDbEntityEntry.cs" />
+    <Compile Include="EntityFramework\Context\MainContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EntityFramework\TypeMaps\UserMap.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Company.Commerce.Entity\Company.Commerce.Entity.csproj">
+      <Project>{d6b76945-39eb-4fd2-af1e-362dd68eceb2}</Project>
+      <Name>Company.Commerce.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Company.Commerce.Framework\Company.Commerce.Framework.csproj">
+      <Project>{6415a112-6c78-45d5-a8a1-ca60263451a8}</Project>
+      <Name>Company.Commerce.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LICENSE.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

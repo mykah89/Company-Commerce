@@ -1,0 +1,19 @@
+﻿@model Proj.MVC.ViewModels.Store.ProductViewModel
+
+<!-- Item -->
+<div class="sitem">
+    <div class="onethree-left">
+        <!-- Image -->
+        <a href="@Url.Action("ProductDetails", "Store", new { productId = Model.Id })">
+            <img src="@Html.BaseImagePath()@Model.DefaultImagePath" alt="" class="img-responsive" /></a>
+    </div>
+    <div class="onethree-right">
+        <!-- Title -->
+        <a href="@Url.Action("ProductDetails", "Store", new { productId = @Model.Id })">@Model.Name</a>
+        <!-- Para -->
+        <p>Aenean ullamcorper justo tincidunt justo aliquet.</p>
+        <!-- Price -->
+        <p class="bold">@String.Format("{0:c}", Model.Price)</p>
+    </div>
+    <div class="clearfix"></div>
+</div>

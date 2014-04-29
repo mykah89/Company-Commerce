@@ -1,0 +1,28 @@
+﻿@model Company.Commerce.Web.ViewModels.General.ContactUsViewModel
+
+<div class="contactus-shared">
+    @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class = "form", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label class="control-label">Name</label>
+            <span class="pull-right">@Html.ValidationMessageFor(m => m.Name)</span>
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Name" })
+        </div>
+        <div class="form-group">
+            <label class="control-label">Your Email</label>
+            <span class="pull-right">@Html.ValidationMessageFor(m => m.Email)</span>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+        </div>
+        <div class="form-group">
+            <label class="control-label">Details</label>
+            <span class="pull-right">@Html.ValidationMessageFor(m => m.Text)</span>
+            @Html.TextAreaFor(m => m.Text, new { @class = "form-control text-area", rows = "3", placeholder = "Details" })
+        </div>
+        <div class="form-group">
+            <div class="btn-group pull-right">
+                <button class="btn btn-primary btn-danger" type="submit">Let us know!</button>
+            </div>
+        </div>
+    }
+</div>

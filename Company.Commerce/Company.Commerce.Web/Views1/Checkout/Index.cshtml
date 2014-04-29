@@ -1,0 +1,74 @@
+﻿<!--Page Title-->
+@section pagetitle
+{
+    <div class="row">
+        <div id="page-title" class="col-md-12">
+            <h2><i class="fa fa-hand-o-right"></i>Checkout&nbsp;<small>Continue to checkout</small></h2>
+            <hr />
+        </div>
+    </div>
+}
+
+<div id="index-checkout">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="existinguser-container">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-arrow-circle-o-right text-warning"></i>Existing Users
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <span class="pull-right register">
+                                Not yet a member?
+                                <a class="text-warning" href="@Url.Action("Register","Account")">Sign up now!</a>
+                            </span>
+                        }
+                    </div>
+                    <div class="panel-body">
+                        @if (!Request.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("returnUrl", Url.Action("Index", "Checkout"))
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Username</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" name="UserName" type="text" placeholder="Username" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Password</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" name="Password" type="password" placeholder="Password" />
+                                    </div>
+                                </div>
+                                <div class="pull-right">
+                                    <button class="btn btn-primary pull-right" type="submit">Login</button>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Checkout","Checkout")" class="btn btn-primary"><i class="fa fa-arrow-right"></i>&nbsp;Continue</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="guest-container">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-user text-warning"></i>Guests
+                    </div>
+                    <div class="panel-body">
+                        <h4>TODO Not Implemented Yet</h4>
+                        @*<a class="btn btn-primary"><i class="fa fa-arrow-right"></i>&nbsp;Continue</a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

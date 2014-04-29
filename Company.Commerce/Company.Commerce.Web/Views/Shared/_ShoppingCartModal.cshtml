@@ -1,0 +1,65 @@
+﻿@model Company.Commerce.Web.ViewModels.ShoppingCart.ShoppingCartModalViewModel
+
+<div class="modal fade" id="shoppingcart-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-shopping-cart text-warning"></i>Shopping Cart
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="panel-body">
+                @if (!Model.CartItems.Any())
+                {
+                    <h2 class="text-center">No items in cart.</h2>
+                    <h3 class="text-center">
+                        <a class="btn btn-danger" href="@Url.Action("Index", "Store")">
+                            Shop now!
+                        </a>
+                    </h3>
+                }
+                else
+                {
+                    <!-- Items table -->
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.CartItems)
+                            {
+                                <tr>
+                                    <td><a href="@Url.Action("ProductDetails", "Store", new { productId = item.ProductId })">@item.Product.Name</a></td>
+                                    <td>@item.Quantity</td>
+                                    <td>@(item.Product.Price * item.Quantity)</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td>Total</td>
+                                <td>@Model.Price</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            @*<a class="btn btn-primary pull-left" data-dismiss="modal">Continue Shopping</a>*@
+                            <span class="pull-right">
+                                <a href="@Url.Action("Index", "ShoppingCart")" class="btn btn-primary">View Cart</a>
+                                <a href="@Url.Action("Index", "Checkout")" class="btn btn-primary">Checkout</a>
+                            </span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+

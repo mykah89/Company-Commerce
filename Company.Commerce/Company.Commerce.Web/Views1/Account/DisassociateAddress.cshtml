@@ -1,0 +1,23 @@
+﻿@model Project.MVC.Entity.Models.Address
+
+
+<div id="disassociateaddress-account">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-question-circle"></i>Remove Address?
+                </div>
+                <div class="panel-body">
+                    @Html.Partial("~/Views/Checkout/DisplayTemplates/DisplayAddressCheckout.cshtml", Model)
+                    @using (Html.BeginForm("DisassociateAddress", "Account", FormMethod.Post, new { @class = "text-center" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.AddressID)
+                        <button class="btn btn-danger text-center" type="submit">Confirm Removal</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

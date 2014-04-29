@@ -1,0 +1,41 @@
+﻿@model List<Project.MVC.Web.ViewModels.Checkout.OrderDetailViewModel>
+
+<div class="display-ordshipping-checkout">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th></th>
+                <th>Unit Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var oDetail in Model)
+            {
+                <tr>
+                    <td>@oDetail.Product.ProductName</td>
+                    <td><img class="thumbnail" src="@Url.Content("~/" + oDetail.Product.DefaultImagePath)" alt="ProductImage" /></td>
+                    <td>@Html.CurrencyFormatter(oDetail.UnitPrice)</td>
+                    <td>@Html.CurrencyFormatter(oDetail.UnitPrice * oDetail.Quantity)</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="text-right">
+                    <p>Shipping</p>
+                    <p>Tax</p>
+                    <p>Total</p>
+                </td>
+                <td>
+                    <p>TBD</p>
+                    <p>TBD</p>
+                    <p>@Html.CurrencyFormatter(Model.Sum(od => od.Quantity * od.UnitPrice))</p>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

@@ -1,0 +1,72 @@
+﻿@model Company.Commerce.Web.ViewModels.Account.OrderHistoryViewModel
+@using PagedList.Mvc
+
+
+<div id="orderhistory-account">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bars text-warning"></i>Order History
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("OrderHistory", "Account", FormMethod.Get))
+                        {
+                            <div class="form-group col-md-6">
+                                <span><strong>From</strong></span>
+                                @Html.EditorFor(m => m.From, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-6 text-center">
+                                <div>
+                                    <span><strong>To</strong></span>
+                                    @Html.EditorFor(m => m.To)
+                                    <button class="btn btn-sm btn-danger pull-right">Filter</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div>
+                        @if (Model.Orders.Any())
+                        {
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model.Orders)
+                                    {
+                                        <tr>
+                                            <td>@order.OrderId</td>
+                                            <td>@String.Format("{0:d}", order.OrderDate)</td>
+                                            <td>@order.TotalPrice</td>
+                                            <td>@order.OrderStatus.ToString()</td>
+                                            <td><a href="@Url.Action("OrderDetails", "Account", new { orderId = order.OrderId })" class="btn btn-primary">Details</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                            <span class="text-center">
+                                @Html.PagedListPager(Model.Orders, (i => @Url.Action("OrderHistory", new { pageNumber = i, From = Model.From.HasValue ? Model.From.Value.ToString("yyyy-MM-dd") : "", To = Model.To.HasValue ? Model.To.Value.ToString("yyyy-MM-dd") : "" })))
+                            </span>
+                        }
+                        else
+                        {
+                            <div class="text-center">
+                                <h4>No orders to display.</h4>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

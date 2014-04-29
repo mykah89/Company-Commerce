@@ -1,0 +1,7 @@
+﻿<NUnitProject>
+  <Settings activeconfig="Debug" processModel="Default" domainUsage="Default" />
+  <Config name="Debug" binpathtype="Auto">
+    <assembly path="Company.Commerce.Service.IntegrationTest\bin\Debug\Company.Commerce.Service.IntegrationTest.exe" />
+  </Config>
+  <Config name="Release" binpathtype="Auto" />
+</NUnitProject>
