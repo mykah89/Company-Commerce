@@ -14,7 +14,7 @@ namespace Company.Commerce.Service.IntegrationTest
         {
             String[] testArgs = { Assembly.GetExecutingAssembly().Location };
 
-            NUnit.ConsoleRunner.Runner.Main(testArgs);
+            NUnitTestRunner.Main(testArgs);
         }
     }
 }

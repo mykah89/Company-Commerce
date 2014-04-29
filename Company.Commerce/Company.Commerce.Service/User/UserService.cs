@@ -71,7 +71,8 @@ namespace Company.Commerce.Service
             {
                 AccountConfirmed = false,
                 EmailAddress = emailAddress,
-                Username = username
+                Username = username,
+                PasswordVerificationTokenExpiration = DateTime.Now
             };
 
             //Password must be validated and hash set via the SetPasswordMethod
